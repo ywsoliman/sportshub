@@ -10,29 +10,55 @@ import Foundation
 struct TeamResponse: Codable {
     let success: Int
     let result: [Team]
-        
+    
     struct Team: Codable {
-        let team_key: Int
-        let team_name: String
-        let team_logo: String?
+        let teamKey: Int
+        let teamName: String
+        let teamLogo: String?
         let players: [Player]?
         let coaches: [Coach]?
-            
-        struct Player: Codable {
-            let player_key: Int
-            let player_name: String
-            let player_image: String
-            let player_age: String
-            let player_goals: String
-            let player_match_played: String
-            let player_number: String
-            let player_injured: String
+        
+        enum CodingKeys: String, CodingKey {
+            case teamKey = "team_key"
+            case teamName = "team_name"
+            case teamLogo = "team_logo"
+            case players
+            case coaches 
         }
+        
+        struct Player: Codable {
+            let playerKey: Int
+            let playerName: String
+            let playerImage: String
+            let playerAge: String
+            let playerGoals: String
+            let playerMatchPlayed: String
+            let playerNumber: String
+            let playerInjured: String
             
+            enum CodingKeys: String, CodingKey {
+                case playerKey = "player_key"
+                case playerName = "player_name"
+                case playerImage = "player_image"
+                case playerAge = "player_age"
+                case playerGoals = "player_goals"
+                case playerMatchPlayed = "player_match_played"
+                case playerNumber = "player_number"
+                case playerInjured = "player_injured"
+            }
+        }
+        
         struct Coach: Codable {
-            let coach_name: String
-            let coach_country: String?
-            let coach_age: Int?
+            let coachName: String
+            let coachCountry: String?
+            let coachAge: Int?
+            
+            enum CodingKeys: String, CodingKey {
+                case coachName = "coach_name"
+                case coachCountry = "coach_country"
+                case coachAge = "coach_age"
+            }
         }
     }
 }
+
