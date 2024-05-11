@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leagueCell" rowHeight="62" id="KGk-i7-Jjw" customClass="LeagueTableViewCell" customModule="SportsHub" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bIS-C1-MKV">
+                        <rect key="frame" x="16" y="8" width="84" height="84"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="84" id="Prk-rD-vLY"/>
+                            <constraint firstAttribute="width" constant="84" id="nrG-Nv-yfW"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hj0-HR-V5X">
+                        <rect key="frame" x="108" y="39.666666666666664" width="204" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="bIS-C1-MKV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Ikx-sf-gfK"/>
+                    <constraint firstAttribute="bottom" secondItem="bIS-C1-MKV" secondAttribute="bottom" constant="8" id="K8l-P7-oTp"/>
+                    <constraint firstItem="bIS-C1-MKV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Nlk-EI-676"/>
+                    <constraint firstAttribute="trailing" secondItem="hj0-HR-V5X" secondAttribute="trailing" constant="8" id="ckC-FC-lD1"/>
+                    <constraint firstItem="hj0-HR-V5X" firstAttribute="centerY" secondItem="bIS-C1-MKV" secondAttribute="centerY" id="nVI-zO-7NH"/>
+                    <constraint firstItem="hj0-HR-V5X" firstAttribute="leading" secondItem="bIS-C1-MKV" secondAttribute="trailing" constant="8" id="oSA-sh-dCl"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="leagueImage" destination="bIS-C1-MKV" id="mB0-r9-svV"/>
+                <outlet property="name" destination="hj0-HR-V5X" id="7Yx-67-6Pg"/>
+            </connections>
+            <point key="canvasLocation" x="335.87786259541986" y="-18.30985915492958"/>
+        </tableViewCell>
+    </objects>
+</document>
