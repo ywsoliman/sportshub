@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="28B-in-tCm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88f-pU-LA1">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Sports Collection View Controller-->
+        <!--Sports-->
         <scene sceneID="Fvs-IT-Pob">
             <objects>
                 <collectionViewController id="28B-in-tCm" customClass="SportsCollectionViewController" customModule="SportsHub" customModuleProvider="target" sceneMemberID="viewController">
@@ -54,6 +54,7 @@
                                 <connections>
                                     <outlet property="imageView" destination="Mh3-dF-Pof" id="8Og-Mq-tAs"/>
                                     <outlet property="name" destination="U5r-3d-P4l" id="kFZ-SB-g4N"/>
+                                    <segue destination="Srz-fA-Kb4" kind="show" id="G0i-Dd-sgA"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -62,8 +63,56 @@
                             <outlet property="delegate" destination="28B-in-tCm" id="KTC-Sd-6hB"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" title="Sports" id="oho-uw-6VS"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uLU-7C-fJW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="874.04580152671747" y="-69.014084507042256"/>
+        </scene>
+        <!--Leagues-->
+        <scene sceneID="UIy-dQ-1bj">
+            <objects>
+                <tableViewController id="Srz-fA-Kb4" customClass="LeaguesTableViewController" customModule="SportsHub" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="7Ba-dT-pfb">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <inset key="scrollIndicatorInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="leagueCell" rowHeight="50" id="N6h-Su-Foz" customClass="LeagueTableViewCell" customModule="SportsHub" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="393" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N6h-Su-Foz" id="WIi-md-ceM">
+                                    <rect key="frame" x="0.0" y="0.0" width="362.66666666666669" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Srz-fA-Kb4" id="e0d-zg-tPd"/>
+                            <outlet property="delegate" destination="Srz-fA-Kb4" id="iTp-yp-kVw"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Leagues" id="89x-gx-LbX"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gsz-AX-vsT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1692" y="-69"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nmy-e2-HbB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="88f-pU-LA1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="jlb-Y2-mdG">
+                        <rect key="frame" x="0.0" y="59" width="393" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="28B-in-tCm" kind="relationship" relationship="rootViewController" id="1SU-46-Mra"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ysw-Qd-BYe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-52.671755725190835" y="-69.014084507042256"/>
         </scene>

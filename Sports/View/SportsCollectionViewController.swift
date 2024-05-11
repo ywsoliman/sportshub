@@ -17,8 +17,8 @@ class SportsCollectionViewController: UICollectionViewController, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         sportsViewModel = SportsViewModel()
-        sportsViewModel.bindSportsViewModelToController = {
-            self.collectionView.reloadData()
+        sportsViewModel.bindSportsViewModelToController = { [weak self] in
+            self?.collectionView.reloadData()
         }
     }
     
@@ -59,6 +59,19 @@ class SportsCollectionViewController: UICollectionViewController, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         sectionInsets
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let leagueVC = segue.destination as? LeaguesTableViewController else { return }
+        
+        if let cell = sender as? SportCollectionViewCell, let indexPath = collectionView.indexPath(for: cell) {
+            
+            let league = sportsViewModel.sports[indexPath.row].name.lowercased()            
+            leagueVC.sportName = league
+            
+        }
+        
     }
     
 }
