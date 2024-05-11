@@ -134,9 +134,6 @@
 			children = (
 				BE371A252BEE7CFE00ACAA6C /* Sports */,
 				BE371A262BEE7D0500ACAA6C /* Leagues */,
-				BE371A272BEE7D0900ACAA6C /* LeagueDetails */,
-				BE371A292BEE7D6B00ACAA6C /* TeamDetails */,
-				BE371A282BEE7D1300ACAA6C /* Favorite */,
 				BEBD010B2BEEF01600BF6EC7 /* Service */,
 				BE3719F22BEE7CE800ACAA6C /* AppDelegate.swift */,
 				BE3719F42BEE7CE800ACAA6C /* SceneDelegate.swift */,
@@ -186,75 +183,6 @@
 				BE371A302BEE7E0C00ACAA6C /* View */,
 			);
 			path = Leagues;
-			sourceTree = "<group>";
-		};
-		BE371A272BEE7D0900ACAA6C /* LeagueDetails */ = {
-			isa = PBXGroup;
-			children = (
-				BE371A2F2BEE7DDD00ACAA6C /* ViewModel */,
-				BE371A2E2BEE7DDA00ACAA6C /* View */,
-			);
-			path = LeagueDetails;
-			sourceTree = "<group>";
-		};
-		BE371A282BEE7D1300ACAA6C /* Favorite */ = {
-			isa = PBXGroup;
-			children = (
-				BE371A2D2BEE7DD200ACAA6C /* ViewModel */,
-				BE371A2C2BEE7DCE00ACAA6C /* View */,
-			);
-			path = Favorite;
-			sourceTree = "<group>";
-		};
-		BE371A292BEE7D6B00ACAA6C /* TeamDetails */ = {
-			isa = PBXGroup;
-			children = (
-				BE371A2B2BEE7D7F00ACAA6C /* View */,
-				BE371A2A2BEE7D7900ACAA6C /* ViewModel */,
-			);
-			path = TeamDetails;
-			sourceTree = "<group>";
-		};
-		BE371A2A2BEE7D7900ACAA6C /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		BE371A2B2BEE7D7F00ACAA6C /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BE371A2C2BEE7DCE00ACAA6C /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BE371A2D2BEE7DD200ACAA6C /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		BE371A2E2BEE7DDA00ACAA6C /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BE371A2F2BEE7DDD00ACAA6C /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		BE371A302BEE7E0C00ACAA6C /* View */ = {
