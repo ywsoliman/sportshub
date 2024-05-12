@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TeamDetailsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -57,16 +57,28 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.register(PlayerTableViewCell.nib(), forCellReuseIdentifier: PlayerTableViewCell.identifier)
     }
     
-    func setIndicator() {
-        networkIndicator.style = .large
-        networkIndicator.center = view.center
-        networkIndicator.startAnimating()
-        view.addSubview(networkIndicator)
+    @IBAction func favBarBtn(_ sender: UIBarButtonItem) {
+        
+        if sender.image == UIImage(systemName: "star") {
+            sender.image = UIImage(systemName: "star.fill")
+        } else {
+            sender.image = UIImage(systemName: "star")
+        }
     }
     
-    func stopIndicator() {
-        networkIndicator.stopAnimating()
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
     }
+    */
+
+}
+
+extension TeamDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return teamDetailsViewModel.team?.players?.count ?? 0
@@ -94,23 +106,4 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
-    @IBAction func favBarBtn(_ sender: UIBarButtonItem) {
-        
-        if sender.image == UIImage(systemName: "star") {
-            sender.image = UIImage(systemName: "star.fill")
-        } else {
-            sender.image = UIImage(systemName: "star")
-        }
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
