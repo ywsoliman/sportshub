@@ -25,10 +25,10 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { // 1
             return
         }
-        let managedContext = appDelegate.persistentContainer.viewContext
+        let managedContext = appDelegate.persistentContainer.viewContext // 2
         
         viewModel = FavoritesViewModel(managedContext: managedContext)
         
@@ -54,14 +54,17 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
             fatalError("Unable to get favorite at index \(indexPath.section)")
         }
         
-        cell.leagueName.text = favorite.name
+        cell.leagueName.text = favorite.leagueName
         
-        if let imageData = favorite.logo,
+        if let logoString = favorite.leagueLogo,
+           let imageUrl = URL(string: logoString),
+           let imageData = try? Data(contentsOf: imageUrl),
            let leagueImage = UIImage(data: imageData) {
             cell.leagueImage.image = leagueImage
         } else {
             cell.leagueImage.image = UIImage(named: "SportsLogo")
         }
+
         
         return cell
     }
