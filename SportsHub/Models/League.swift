@@ -22,3 +22,5 @@ struct League: Codable {
         case leagueLogo = "league_logo"
     }
 }
+
+
