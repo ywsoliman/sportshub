@@ -21,7 +21,7 @@
         <attribute name="name" attributeType="String"/>
         <relationship name="coaches" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoachTable"/>
         <relationship name="players" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlayerTable"/>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23E214" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    </entity>
     <entity name="LeagueEntitie" representedClassName="LeagueEntitie" syncable="YES" codeGenerationType="class">
         <attribute name="leagueKey" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="leagueLogo" optional="YES" attributeType="Binary"/>
