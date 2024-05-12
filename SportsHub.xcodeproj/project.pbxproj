@@ -20,6 +20,8 @@
 		BE371A192BEE7CEA00ACAA6C /* SportsHubUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE371A182BEE7CEA00ACAA6C /* SportsHubUITestsLaunchTests.swift */; };
 		BE371A352BEE7E3500ACAA6C /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE371A342BEE7E3500ACAA6C /* Storyboard.storyboard */; };
 		BE371A3C2BEE8B4200ACAA6C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE371A3B2BEE8B4200ACAA6C /* Constants.swift */; };
+		BE94F3852BF14BAC0045AEC3 /* PlayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE94F3842BF14BAC0045AEC3 /* PlayerDetailsViewController.swift */; };
+		BE94F3872BF14BD20045AEC3 /* PlayerHeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE94F3862BF14BD20045AEC3 /* PlayerHeaderUIView.swift */; };
 		BEBD00FF2BEEC3D600BF6EC7 /* SportCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBD00FE2BEEC3D600BF6EC7 /* SportCollectionViewCell.swift */; };
 		BEBD01012BEEC3F000BF6EC7 /* SportsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBD01002BEEC3F000BF6EC7 /* SportsCollectionViewController.swift */; };
 		BEBD01032BEEC59000BF6EC7 /* SportsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBD01022BEEC59000BF6EC7 /* SportsViewModel.swift */; };
@@ -34,6 +36,12 @@
 		BEBD01212BEF02D000BF6EC7 /* LeagueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEBD01202BEF02D000BF6EC7 /* LeagueTableViewCell.xib */; };
 		BEBD01222BEF02D000BF6EC7 /* LeagueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBD011F2BEF02D000BF6EC7 /* LeagueTableViewCell.swift */; };
 		BEBD01242BEF039000BF6EC7 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BEBD01232BEF039000BF6EC7 /* Kingfisher */; };
+		BEDF0E772BF007160082CBC3 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDF0E762BF007160082CBC3 /* Team.swift */; };
+		BEDF0E7C2BF00B110082CBC3 /* TeamDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDF0E7B2BF00B110082CBC3 /* TeamDetailsViewController.swift */; };
+		BEDF0E7E2BF00B1E0082CBC3 /* TeamDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDF0E7D2BF00B1E0082CBC3 /* TeamDetailsViewModel.swift */; };
+		BEDF0E862BF00F950082CBC3 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDF0E842BF00F950082CBC3 /* PlayerTableViewCell.swift */; };
+		BEDF0E872BF00F950082CBC3 /* PlayerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEDF0E852BF00F950082CBC3 /* PlayerTableViewCell.xib */; };
+		BEDF0E892BF015D40082CBC3 /* NetworkIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDF0E882BF015D40082CBC3 /* NetworkIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +79,8 @@
 		BE371A182BEE7CEA00ACAA6C /* SportsHubUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsHubUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BE371A342BEE7E3500ACAA6C /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		BE371A3B2BEE8B4200ACAA6C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BE94F3842BF14BAC0045AEC3 /* PlayerDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailsViewController.swift; sourceTree = "<group>"; };
+		BE94F3862BF14BD20045AEC3 /* PlayerHeaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHeaderUIView.swift; sourceTree = "<group>"; };
 		BEBD00FE2BEEC3D600BF6EC7 /* SportCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportCollectionViewCell.swift; sourceTree = "<group>"; };
 		BEBD01002BEEC3F000BF6EC7 /* SportsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsCollectionViewController.swift; sourceTree = "<group>"; };
 		BEBD01022BEEC59000BF6EC7 /* SportsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsViewModel.swift; sourceTree = "<group>"; };
@@ -83,6 +93,12 @@
 		BEBD01152BEEF93700BF6EC7 /* APIServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceProtocol.swift; sourceTree = "<group>"; };
 		BEBD011F2BEF02D000BF6EC7 /* LeagueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueTableViewCell.swift; sourceTree = "<group>"; };
 		BEBD01202BEF02D000BF6EC7 /* LeagueTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeagueTableViewCell.xib; sourceTree = "<group>"; };
+		BEDF0E762BF007160082CBC3 /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		BEDF0E7B2BF00B110082CBC3 /* TeamDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsViewController.swift; sourceTree = "<group>"; };
+		BEDF0E7D2BF00B1E0082CBC3 /* TeamDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsViewModel.swift; sourceTree = "<group>"; };
+		BEDF0E842BF00F950082CBC3 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerTableViewCell.swift; path = SportsHub/TeamDetails/View/PlayerTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		BEDF0E852BF00F950082CBC3 /* PlayerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlayerTableViewCell.xib; path = SportsHub/TeamDetails/View/PlayerTableViewCell.xib; sourceTree = SOURCE_ROOT; };
+		BEDF0E882BF015D40082CBC3 /* NetworkIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +177,8 @@
 		BE3719F12BEE7CE800ACAA6C /* SportsHub */ = {
 			isa = PBXGroup;
 			children = (
+				BE94F3822BF14B990045AEC3 /* PlayerDetails */,
+				BEDF0E782BF00AF20082CBC3 /* TeamDetails */,
 				4CDC9F632BF0709400682CB5 /* Fav */,
 				BE371A252BEE7CFE00ACAA6C /* Sports */,
 				BE371A262BEE7D0500ACAA6C /* Leagues */,
@@ -270,15 +288,34 @@
 			isa = PBXGroup;
 			children = (
 				BEBD01072BEED6A300BF6EC7 /* Sport.swift */,
+				BEDF0E762BF007160082CBC3 /* Team.swift */,
 				BEBD010E2BEEF08E00BF6EC7 /* League.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BE94F3822BF14B990045AEC3 /* PlayerDetails */ = {
+			isa = PBXGroup;
+			children = (
+				BE94F3832BF14B9E0045AEC3 /* View */,
+			);
+			path = PlayerDetails;
+			sourceTree = "<group>";
+		};
+		BE94F3832BF14B9E0045AEC3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BE94F3842BF14BAC0045AEC3 /* PlayerDetailsViewController.swift */,
+				BE94F3862BF14BD20045AEC3 /* PlayerHeaderUIView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		BEBD01042BEED4B000BF6EC7 /* Util */ = {
 			isa = PBXGroup;
 			children = (
 				BEBD01052BEED4C500BF6EC7 /* DarkOverlay.swift */,
+				BEDF0E882BF015D40082CBC3 /* NetworkIndicator.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -297,6 +334,33 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BEDF0E782BF00AF20082CBC3 /* TeamDetails */ = {
+			isa = PBXGroup;
+			children = (
+				BEDF0E7A2BF00AFC0082CBC3 /* View */,
+				BEDF0E792BF00AF80082CBC3 /* ViewModel */,
+			);
+			path = TeamDetails;
+			sourceTree = "<group>";
+		};
+		BEDF0E792BF00AF80082CBC3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BEDF0E7D2BF00B1E0082CBC3 /* TeamDetailsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BEDF0E7A2BF00AFC0082CBC3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BEDF0E842BF00F950082CBC3 /* PlayerTableViewCell.swift */,
+				BEDF0E852BF00F950082CBC3 /* PlayerTableViewCell.xib */,
+				BEDF0E7B2BF00B110082CBC3 /* TeamDetailsViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,6 +480,7 @@
 				BE371A352BEE7E3500ACAA6C /* Storyboard.storyboard in Resources */,
 				BEBD01212BEF02D000BF6EC7 /* LeagueTableViewCell.xib in Resources */,
 				BE371A022BEE7CEA00ACAA6C /* Base in Resources */,
+				BEDF0E872BF00F950082CBC3 /* PlayerTableViewCell.xib in Resources */,
 				BE3719FA2BEE7CE800ACAA6C /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,13 +515,20 @@
 				BE3719F32BEE7CE800ACAA6C /* AppDelegate.swift in Sources */,
 				BEBD010D2BEEF03F00BF6EC7 /* APIService.swift in Sources */,
 				BE3719F52BEE7CE800ACAA6C /* SceneDelegate.swift in Sources */,
+				BEDF0E862BF00F950082CBC3 /* PlayerTableViewCell.swift in Sources */,
 				BEBD01032BEEC59000BF6EC7 /* SportsViewModel.swift in Sources */,
 				BEBD01162BEEF93700BF6EC7 /* APIServiceProtocol.swift in Sources */,
 				BEBD00FF2BEEC3D600BF6EC7 /* SportCollectionViewCell.swift in Sources */,
+				BEDF0E892BF015D40082CBC3 /* NetworkIndicator.swift in Sources */,
 				BEBD01082BEED6A300BF6EC7 /* Sport.swift in Sources */,
+				BEDF0E772BF007160082CBC3 /* Team.swift in Sources */,
 				4CDC9F652BF070A400682CB5 /* FavoritesView.swift in Sources */,
 				BEBD010A2BEEEC2200BF6EC7 /* LeaguesTableViewController.swift in Sources */,
+				BE94F3872BF14BD20045AEC3 /* PlayerHeaderUIView.swift in Sources */,
+				BEDF0E7E2BF00B1E0082CBC3 /* TeamDetailsViewModel.swift in Sources */,
+				BE94F3852BF14BAC0045AEC3 /* PlayerDetailsViewController.swift in Sources */,
 				BEBD010F2BEEF08E00BF6EC7 /* League.swift in Sources */,
+				BEDF0E7C2BF00B110082CBC3 /* TeamDetailsViewController.swift in Sources */,
 				BE371A3C2BEE8B4200ACAA6C /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
