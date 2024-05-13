@@ -8,13 +8,13 @@
 // MARK: https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=463e81a5fab411a1723707c80e9aaec0c16bdfbf90536258ea9448bf4a838721&from=2021-05-18&to=2021-05-18
 import Foundation
 
-struct Event: Codable {
+struct UpComingEventResult: Codable {
     let success: Int
-    let result: [Result]
+    let result: [UpComingEvents]
 }
 
 // MARK: - Result
-struct Result: Codable {
+struct UpComingEvents: Codable {
     let eventKey: Int
     let eventDate, eventTime, eventHomeTeam: String
     let eventAwayTeam: String

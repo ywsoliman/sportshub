@@ -9,13 +9,27 @@ import Foundation
 import Alamofire
 
 class LeaguesDetailsVM {
-    
+    var upComingEvent: [UpComingEvents] = []
     var latestEvent: [LatestEvent] = []
     var teams: [TeamSections] = []
     
     let networkService = NetworkService.shared
 
     // MARK: first work for get API for Up coming events
+    func fetchUpComingEvents(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
+        let parameters: [String: Any] = [
+            "leagueId": leagueId,
+            "from": "2024-05-18",
+            "to": "2024-05-25"
+        ]
+        networkService.fetch(dataType: UpComingEventResult.self, league: "football", met: "Fixtures", parameters: parameters, onCompletion: { upComingEventResponse in
+            let upComingEvent = upComingEventResponse.result
+            self.upComingEvent = upComingEvent
+            onSuccess()
+        }, onFailure: { error in
+            onFailure(error)
+        })
+    }
 
     // MARK: second work for get API for Latest results
     func fetchLatestEvent(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
@@ -44,7 +58,6 @@ class LeaguesDetailsVM {
             onFailure(error)
         })
     }
-
 }
 
 /*

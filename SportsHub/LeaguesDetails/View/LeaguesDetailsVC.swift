@@ -17,6 +17,15 @@ class LeaguesDetailsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        leaguesDetailsVM.fetchUpComingEvents(leagueId: "207", onSuccess: {
+            self.collectionView.reloadData()
+            IndicatorManager.shared.stopIndicator()
+        }, onFailure: { error in
+            print("Error fetching upcoming events:", error)
+            IndicatorManager.shared.stopIndicator()
+        })
+        
         IndicatorManager.shared.setIndicator(on: self.view)
         
         leaguesDetailsVM.fetchLatestEvent(leagueId: "207", onSuccess: {
@@ -147,7 +156,7 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
             case 0:
-                return 10
+            return leaguesDetailsVM.upComingEvent.count
             case 1:
                 return leaguesDetailsVM.latestEvent.count
             default:
@@ -174,15 +183,22 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
         
-        if let teamsCell = cell as? TeamsCell {
-            let team = leaguesDetailsVM.teams[indexPath.item] // Assuming you have an array of teams
-            teamsCell.setUp(team)
+        if let upComingEventsCell = cell as? UpcomingEventsCell {
+            let upComingEventRes = leaguesDetailsVM.upComingEvent[indexPath.item]
+            upComingEventsCell.setUp(upComingEventRes)
         }
         
         if let latestResCell = cell as? LatestResultsCell {
             let latestRes = leaguesDetailsVM.latestEvent[indexPath.item]
             latestResCell.setUp(latestRes)
         }
+        
+        if let teamsCell = cell as? TeamsCell {
+            let team = leaguesDetailsVM.teams[indexPath.item] // Assuming you have an array of teams
+            teamsCell.setUp(team)
+        }
+        
+
         
         //
         cell.layer.cornerRadius = 10
