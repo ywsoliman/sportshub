@@ -10,34 +10,24 @@ import UIKit
 class LeaguesTableViewController: UITableViewController {
 
     private var leaguesViewModel: LeaguesViewModel!
-    private let networkIndicator = UIActivityIndicatorView()
     var sportName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let networkIndicator = NetworkIndicator(view: view)
+        
         tableView.register(LeagueTableViewCell.nib(), forCellReuseIdentifier: LeagueTableViewCell.identifier)
         
         leaguesViewModel = LeaguesViewModel(service: APIService.shared)
         leaguesViewModel.bindLeaguesViewModelToController = { [weak self] in
-            self?.stopIndicator()
+            networkIndicator.stopIndicator()
             self?.tableView.reloadData()
         }
         if let sportName {
-            setIndicator()
+            networkIndicator.setIndicator()
             leaguesViewModel.fetchLeagues(league: sportName)
         }
-    }
-    
-    func setIndicator() {
-        networkIndicator.style = .large
-        networkIndicator.center = view.center
-        networkIndicator.startAnimating()
-        view.addSubview(networkIndicator)
-    }
-    
-    func stopIndicator() {
-        networkIndicator.stopAnimating()
     }
 
     // MARK: - Table view data source
