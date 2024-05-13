@@ -7,13 +7,11 @@
 
 import UIKit
 
-class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TeamDetailsViewController: UIViewController {
+    
+    private var teamDetailsViewModel: TeamDetailsViewModel!
     
     @IBOutlet weak var tableView: UITableView!
-
-    private var teamDetailsViewModel: TeamDetailsViewModel!
-    private let networkIndicator = UIActivityIndicatorView()
-    
     @IBOutlet weak var teamImageView: UIImageView!
     @IBOutlet weak var coachLabel: UILabel!
     
@@ -29,8 +27,8 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         networkIndicator.setIndicator()
         
         teamDetailsViewModel.bindTeamDetailsViewModelToController = { [weak self] in
-            self?.updateTeamUI()
             networkIndicator.stopIndicator()
+            self?.updateTeamUI()
             self?.tableView.reloadData()
         }
         
@@ -57,16 +55,36 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.register(PlayerTableViewCell.nib(), forCellReuseIdentifier: PlayerTableViewCell.identifier)
     }
     
-    func setIndicator() {
-        networkIndicator.style = .large
-        networkIndicator.center = view.center
-        networkIndicator.startAnimating()
-        view.addSubview(networkIndicator)
+    @IBAction func favBarBtn(_ sender: UIBarButtonItem) {
+        if sender.image == UIImage(systemName: "star") {
+            sender.image = UIImage(systemName: "star.fill")
+        } else {
+            sender.image = UIImage(systemName: "star")
+        }
     }
     
-    func stopIndicator() {
-        networkIndicator.stopAnimating()
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            performSegue(withIdentifier: "showPlayerSegue", sender: cell)
+        }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let destVC = segue.destination as? PlayerDetailsViewController else { return }
+        
+        if let cell = sender as? PlayerTableViewCell,
+           let indexPath = tableView.indexPath(for: cell) {
+            
+            destVC.player = teamDetailsViewModel.team?.players?[indexPath.section]
+            
+        }
+        
+    }
+    
+}
+
+extension TeamDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return teamDetailsViewModel.team?.players?.count ?? 0
@@ -88,29 +106,11 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         
         cell.configure(player: player)
         cell.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
         
         return cell
         
     }
     
-    @IBAction func favBarBtn(_ sender: UIBarButtonItem) {
-        
-        if sender.image == UIImage(systemName: "star") {
-            sender.image = UIImage(systemName: "star.fill")
-        } else {
-            sender.image = UIImage(systemName: "star")
-        }
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
