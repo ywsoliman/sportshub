@@ -17,32 +17,11 @@ class LeaguesDetailsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        leaguesDetailsVM.fetchUpComingEvents(leagueId: "207", onSuccess: {
-            self.collectionView.reloadData()
-            IndicatorManager.shared.stopIndicator()
-        }, onFailure: { error in
-            print("Error fetching upcoming events:", error)
-            IndicatorManager.shared.stopIndicator()
-        })
-        
         IndicatorManager.shared.setIndicator(on: self.view)
         
-        leaguesDetailsVM.fetchLatestEvent(leagueId: "207", onSuccess: {
-            self.collectionView.reloadData()
-            IndicatorManager.shared.stopIndicator()
-        }, onFailure: { error in
-            print("Error fetching latest event:", error)
-            IndicatorManager.shared.stopIndicator()
-        })
-        
-        leaguesDetailsVM.fetchTeams(leagueId: "207", onSuccess: {
-            self.collectionView.reloadData()
-            IndicatorManager.shared.stopIndicator()
-        }, onFailure: { error in
-            print("Error fetching teams:", error)
-            IndicatorManager.shared.stopIndicator()
-        }) // MARK: this id i will get from fav or leagues
+        fetchUpComingEvents()
+        fetchLatestEvent()
+        fetchTeams()
           
         // Do any additional setup after loading the view.
         let layOut = UICollectionViewCompositionalLayout{ index, enviroment in
@@ -50,7 +29,7 @@ class LeaguesDetailsVC: UIViewController {
         }
         collectionView.collectionViewLayout = layOut
     }
-    
+        
     func drawUpComingEvents() -> NSCollectionLayoutSection{
         
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
@@ -138,17 +117,49 @@ class LeaguesDetailsVC: UIViewController {
         }
     }
     
-    @IBAction func addFavBtn(_ sender: Any) {
-        isFavorited.toggle()
-        updateButtonImage()
-    }
-    
     // MARK: Helper methods :-
     func updateButtonImage() {
         let imageName = isFavorited ? "heart.fill" : "heart"
         let image = UIImage(systemName: imageName)
         favBtnOL.setImage(image, for: .normal)
     }
+    
+    func fetchUpComingEvents(){
+        leaguesDetailsVM.fetchUpComingEvents(leagueId: "207", onSuccess: {
+            self.collectionView.reloadData()
+            IndicatorManager.shared.stopIndicator()
+        }, onFailure: { error in
+            print("Error fetching upcoming events:", error)
+            IndicatorManager.shared.stopIndicator()
+        })
+    }
+    
+    func fetchLatestEvent() {
+        leaguesDetailsVM.fetchLatestEvent(leagueId: "207", onSuccess: {
+            self.collectionView.reloadData()
+            IndicatorManager.shared.stopIndicator()
+        }, onFailure: { error in
+            print("Error fetching latest event:", error)
+            IndicatorManager.shared.stopIndicator()
+        })
+    }
+    
+    func fetchTeams () {
+        leaguesDetailsVM.fetchTeams(leagueId: "207", onSuccess: {
+            self.collectionView.reloadData()
+            IndicatorManager.shared.stopIndicator()
+        }, onFailure: { error in
+            print("Error fetching teams:", error)
+            IndicatorManager.shared.stopIndicator()
+        }) // MARK: this id i will get from fav or leagues
+    }
+    
+    @IBAction func addFavBtn(_ sender: Any) {
+        isFavorited.toggle()
+        updateButtonImage()
+    }
+    
+
 }
 
 extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate {

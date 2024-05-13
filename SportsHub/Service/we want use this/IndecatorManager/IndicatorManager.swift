@@ -8,6 +8,7 @@
 import UIKit
 
 class IndicatorManager {
+    
     static let shared = IndicatorManager()
     
     private var networkIndicator: UIActivityIndicatorView
