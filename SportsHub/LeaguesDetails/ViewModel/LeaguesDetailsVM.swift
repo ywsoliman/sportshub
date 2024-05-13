@@ -9,20 +9,34 @@ import Foundation
 import Alamofire
 
 class LeaguesDetailsVM {
+    
+    var latestEvent: [LatestEvent] = []
     var teams: [TeamSections] = []
     
     let networkService = NetworkService.shared
-    
 
-    
     // MARK: first work for get API for Up coming events
 
     // MARK: second work for get API for Latest results
-    
+    func fetchLatestEvent(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
+        let parameters: [String: Any] = [
+            "leagueId": leagueId,
+            "from": "2024-05-1",
+            "to": "2024-05-12"
+        ]
+        networkService.fetch(dataType: LatestEventResponse.self, league: "football", met: "Fixtures", parameters: parameters, onCompletion: { latestEventResponse in
+            let latestEvent = latestEventResponse.result
+            self.latestEvent = latestEvent
+            onSuccess()
+        }, onFailure: { error in
+            onFailure(error)
+        })
+    }
+
     // MARK: third work for get API for Teams
     func fetchTeams(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
         let parameters: [String: Any] = ["leagueId": leagueId]
-        networkService.fetch(dataType: TeamsResponse.self, league: "football", parameters: parameters, onCompletion: { teamsResponse in
+        networkService.fetch(dataType: TeamsResponse.self, league: "football", met: "Teams", parameters: parameters, onCompletion: { teamsResponse in
             let teams = teamsResponse.result
             self.teams = teams //
             onSuccess()

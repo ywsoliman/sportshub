@@ -18,16 +18,23 @@ class LeaguesDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         IndicatorManager.shared.setIndicator(on: self.view)
+        
+        leaguesDetailsVM.fetchLatestEvent(leagueId: "207", onSuccess: {
+            self.collectionView.reloadData()
+            IndicatorManager.shared.stopIndicator()
+        }, onFailure: { error in
+            print("Error fetching latest event:", error)
+            IndicatorManager.shared.stopIndicator()
+        })
+        
         leaguesDetailsVM.fetchTeams(leagueId: "207", onSuccess: {
-            // Reload collection view when data is fetched successfully
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
             print("Error fetching teams:", error)
             IndicatorManager.shared.stopIndicator()
-        })
- // MARK: this id i will get from fav or leagues
-        
+        }) // MARK: this id i will get from fav or leagues
+          
         // Do any additional setup after loading the view.
         let layOut = UICollectionViewCompositionalLayout{ index, enviroment in
             return self.layoutForSection(at: index)
@@ -138,7 +145,14 @@ class LeaguesDetailsVC: UIViewController {
 extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return leaguesDetailsVM.teams.count
+        switch section {
+            case 0:
+                return 10
+            case 1:
+                return leaguesDetailsVM.latestEvent.count
+            default:
+                return leaguesDetailsVM.teams.count
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -163,6 +177,11 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
         if let teamsCell = cell as? TeamsCell {
             let team = leaguesDetailsVM.teams[indexPath.item] // Assuming you have an array of teams
             teamsCell.setUp(team)
+        }
+        
+        if let latestResCell = cell as? LatestResultsCell {
+            let latestRes = leaguesDetailsVM.latestEvent[indexPath.item]
+            latestResCell.setUp(latestRes)
         }
         
         //

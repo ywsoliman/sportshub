@@ -14,11 +14,10 @@ struct NetworkService {
     
     private init() {}
     
-    func fetch<T: Codable>(dataType: T.Type, league: String, parameters: [String: Any] = [:], onCompletion: @escaping (T) -> Void, onFailure: @escaping (String) -> Void) {
+    func fetch<T: Codable>(dataType: T.Type, league: String, met: String, parameters: [String: Any] = [:], onCompletion: @escaping (T) -> Void, onFailure: @escaping (String) -> Void) {
         var allParameters = parameters
         allParameters["APIkey"] = Constants.API_KEY
-        allParameters["met"] = "Teams"
-        //football/?&met=Teams&leagueId=207&APIkey=
+        allParameters["met"] = met
 
         let urlWithEndpoint = Constants.BASE_URL + league + "/"
         
@@ -31,4 +30,5 @@ struct NetworkService {
             }
         }
     }
+
 }
