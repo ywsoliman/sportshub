@@ -123,7 +123,7 @@ class LeaguesDetailsVC: UIViewController {
         let image = UIImage(systemName: imageName)
         favBtnOL.setImage(image, for: .normal)
     }
-    
+    // MARK: change leagu ID not to be static
     func fetchUpComingEvents(){
         leaguesDetailsVM.fetchUpComingEvents(leagueId: "207", onSuccess: {
             self.collectionView.reloadData()
@@ -158,8 +158,6 @@ class LeaguesDetailsVC: UIViewController {
         isFavorited.toggle()
         updateButtonImage()
     }
-    
-
 }
 
 extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -205,22 +203,21 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
         }
         
         if let teamsCell = cell as? TeamsCell {
-            let team = leaguesDetailsVM.teams[indexPath.item] // Assuming you have an array of teams
+            let team = leaguesDetailsVM.teams[indexPath.item]
             teamsCell.setUp(team)
         }
-        
 
-        
-        //
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
         cell.layer.borderWidth = 1.0
         cell.layer.borderColor = UIColor.black.cgColor
         
-        cell.layer.shadowOpacity = 0.1
+        cell.layer.shadowOpacity = 1
         cell.layer.shadowOffset = CGSize(width: 0, height: 2)
         cell.layer.shadowColor = UIColor.black.cgColor
-    
+        
+        //cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
+
         return cell
     }
 }
@@ -262,5 +259,24 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      
      return section
  }
+ 
+ */
+
+
+
+
+
+
+/*
+ 
+ Hello, my name is Anas. I recently completed a 9-month program in Mobile Applications Development at
+
+  -  ITI. My journey into programming began with CS50, an introduction to computer science, and
+ 
+  -  progressed to the Meta iOS track. Now, I'm eager to start my career as a junior iOS Developer
+    
+  -  and contribute to innovative projects in the field. I'm passionate about creating good user
+ 
+  -  experiences and leveraging the latest technologies to build peutyfull applications.
  
  */

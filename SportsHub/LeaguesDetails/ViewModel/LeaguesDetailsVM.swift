@@ -19,7 +19,7 @@ class LeaguesDetailsVM {
     func fetchUpComingEvents(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
         let parameters: [String: Any] = [
             "leagueId": leagueId,
-            "from": "2024-05-18",
+            "from": "2024-05-18", // MARK: cahange date not static
             "to": "2024-05-25"
         ]
         networkService.fetch(dataType: UpComingEventResult.self, league: "football", met: "Fixtures", parameters: parameters, onCompletion: { upComingEventResponse in
@@ -35,7 +35,7 @@ class LeaguesDetailsVM {
     func fetchLatestEvent(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
         let parameters: [String: Any] = [
             "leagueId": leagueId,
-            "from": "2024-05-1",
+            "from": "2024-05-1", // MARK: change it not to
             "to": "2024-05-12"
         ]
         networkService.fetch(dataType: LatestEventResponse.self, league: "football", met: "Fixtures", parameters: parameters, onCompletion: { latestEventResponse in
@@ -52,26 +52,10 @@ class LeaguesDetailsVM {
         let parameters: [String: Any] = ["leagueId": leagueId]
         networkService.fetch(dataType: TeamsResponse.self, league: "football", met: "Teams", parameters: parameters, onCompletion: { teamsResponse in
             let teams = teamsResponse.result
-            self.teams = teams //
+            self.teams = teams
             onSuccess()
         }, onFailure: { error in
             onFailure(error)
         })
     }
 }
-
-/*
- func fetchTeamss(leagueId: Int, onSuccess: @escaping ([TeamSections]) -> Void, onFailure: @escaping (String) -> Void) {
-     let endpoint = "https://apiv2.allsportsapi.com/football/"
-     let parameters: [String: Any] = ["met": "Teams", "leagueId": leagueId, "APIkey": Constants.API_KEY]
-     
-     AF.request(endpoint, parameters: parameters).responseDecodable(of: TeamsResponse.self) { response in
-         switch response.result {
-         case .success(let teamsResponse):
-             onSuccess(teamsResponse.result)
-         case .failure(let error):
-             onFailure("Fetching error: \(error.localizedDescription)")
-         }
-     }
- }
- */
