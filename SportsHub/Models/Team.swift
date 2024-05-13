@@ -39,6 +39,7 @@ struct Player: Codable {
     let playerMatchPlayed: String
     let playerNumber: String
     let playerInjured: String
+    let playerType: String
     
     enum CodingKeys: String, CodingKey {
         case playerKey = "player_key"
@@ -49,6 +50,7 @@ struct Player: Codable {
         case playerMatchPlayed = "player_match_played"
         case playerNumber = "player_number"
         case playerInjured = "player_injured"
+        case playerType = "player_type"
     }
 }
         
