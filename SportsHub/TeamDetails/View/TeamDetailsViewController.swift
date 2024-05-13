@@ -9,11 +9,9 @@ import UIKit
 
 class TeamDetailsViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
-
     private var teamDetailsViewModel: TeamDetailsViewModel!
-    private let networkIndicator = UIActivityIndicatorView()
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var teamImageView: UIImageView!
     @IBOutlet weak var coachLabel: UILabel!
     
@@ -29,8 +27,8 @@ class TeamDetailsViewController: UIViewController {
         networkIndicator.setIndicator()
         
         teamDetailsViewModel.bindTeamDetailsViewModelToController = { [weak self] in
-            self?.updateTeamUI()
             networkIndicator.stopIndicator()
+            self?.updateTeamUI()
             self?.tableView.reloadData()
         }
         
@@ -58,7 +56,6 @@ class TeamDetailsViewController: UIViewController {
     }
     
     @IBAction func favBarBtn(_ sender: UIBarButtonItem) {
-        
         if sender.image == UIImage(systemName: "star") {
             sender.image = UIImage(systemName: "star.fill")
         } else {
@@ -66,16 +63,25 @@ class TeamDetailsViewController: UIViewController {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            performSegue(withIdentifier: "showPlayerSegue", sender: cell)
+        }
     }
-    */
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let destVC = segue.destination as? PlayerDetailsViewController else { return }
+        
+        if let cell = sender as? PlayerTableViewCell,
+           let indexPath = tableView.indexPath(for: cell) {
+            
+            destVC.player = teamDetailsViewModel.team?.players?[indexPath.section]
+            
+        }
+        
+    }
+    
 }
 
 extension TeamDetailsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -100,6 +106,7 @@ extension TeamDetailsViewController: UITableViewDelegate, UITableViewDataSource 
         
         cell.configure(player: player)
         cell.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
         
         return cell
