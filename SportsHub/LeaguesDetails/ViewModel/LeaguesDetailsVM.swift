@@ -14,6 +14,7 @@ class LeaguesDetailsVM {
     var teams: [TeamSections] = []
     
     let networkService = NetworkService.shared
+    private let coreDataHelper = CoreDataHelper.shared
 
     // MARK: first work for get API for Up coming events
     func fetchUpComingEvents(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
@@ -57,5 +58,18 @@ class LeaguesDetailsVM {
         }, onFailure: { error in
             onFailure(error)
         })
+    }
+    
+    // MARK: CoreData ..
+    func saveLeague(leagueKey: UUID, leagueLogo: Data?, leagueName: String) {
+        coreDataHelper.saveLeague(leagueKey: leagueKey, leagueLogo: leagueLogo, leagueName: leagueName)
+    }
+    
+    func deleteLeague(leagueKey: UUID) {
+        coreDataHelper.deleteLeague(leagueKey: leagueKey)
+    }
+    
+    func fetchAllLeagues() -> [LeagueEntitie] {
+        return coreDataHelper.fetchAllLeagues()
     }
 }

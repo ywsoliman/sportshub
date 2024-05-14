@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class LeaguesDetailsVC: UIViewController {
 
@@ -16,24 +17,31 @@ class LeaguesDetailsVC: UIViewController {
     var leagueId: String?
     let leaguesDetailsVM = LeaguesDetailsVM()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        isCurrentLeagueSaved() // see favBtn img will be heart.fill or not
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         guard leagueId != nil else { return }
         
+        // Do any additional setup after loading the view.
+
         IndicatorManager.shared.setIndicator(on: self.view)
         
         fetchUpComingEvents()
         fetchLatestEvent()
         fetchTeams()
-          
-        // Do any additional setup after loading the view.
-        let layOut = UICollectionViewCompositionalLayout{ index, enviroment in
-            return self.layoutForSection(at: index)
+                
+        let layOut = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            return self.layoutForSection(at: sectionIndex)
         }
+
         collectionView.collectionViewLayout = layOut
     }
-        
+
     func drawUpComingEvents() -> NSCollectionLayoutSection{
         
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
@@ -120,14 +128,20 @@ class LeaguesDetailsVC: UIViewController {
             return drawTeams()
         }
     }
-    
+
     // MARK: Helper methods :-
-    func updateButtonImage() {
-        let imageName = isFavorited ? "heart.fill" : "heart"
+    func updateButtonImage(_ flag: Bool) {
+        var imageName = ""
+        if flag {
+            imageName = "heart.fill"
+        } else {
+            imageName = "heart"
+        }
         let image = UIImage(systemName: imageName)
         favBtnOL.setImage(image, for: .normal)
     }
 
+    // MARK: change leagu ID not to be static
     func fetchUpComingEvents(){
         leaguesDetailsVM.fetchUpComingEvents(leagueId: leagueId!, onSuccess: {
             self.collectionView.reloadData()
@@ -158,9 +172,62 @@ class LeaguesDetailsVC: UIViewController {
         }) // MARK: this id i will get from fav or leagues
     }
     
-    @IBAction func addFavBtn(_ sender: Any) {
+    func saveDataIfNotExist() -> Bool{
+        let leagueKey = (Int(leagueId ?? "207") ?? 207).toUUID()
+        let existingLeagues = leaguesDetailsVM.fetchAllLeagues()
+        var isSaving = false
+        
+        if let existingLeague = existingLeagues.first(where: { $0.leagueKey == leagueKey }) {
+            if let existingLeagueKey = existingLeague.leagueKey {
+                leaguesDetailsVM.deleteLeague(leagueKey: existingLeagueKey)
+                isSaving = false
+            } else {
+                print("Error: Existing league key is nil")
+            }
+        } else {
+            isSaving = true
+            if let logoURLString = leaguesDetailsVM.upComingEvent.first?.leagueLogo,
+               let logoURL = URL(string: logoURLString) {
+               let leagueName = leaguesDetailsVM.upComingEvent.first?.leagueName
+
+                KingfisherManager.shared.retrieveImage(with: logoURL) { result in
+                    switch result {
+                    case .success(let imageResult):
+                        if let imageData = imageResult.image.kf.pngRepresentation() {
+                            self.leaguesDetailsVM.saveLeague(leagueKey: leagueKey, leagueLogo: imageData, leagueName: leagueName ?? "Anas")
+                        } else {
+                            print("Failed to convert image to data")
+                        }
+                    case .failure(let error):
+                        print("Error loading image:", error.localizedDescription)
+                    }
+                }
+            } else {
+                print("No logo URL provided or invalid URL")
+            }
+        }
+        return isSaving
+    }
+
+    func isCurrentLeagueSaved() {
+        let existingLeagues = leaguesDetailsVM.fetchAllLeagues()
+        let leagueKey = (Int(leagueId ?? "207") ?? 207).toUUID()
+
+        if let existingLeague = existingLeagues.first(where: { $0.leagueKey == leagueKey }) {
+            let image = UIImage(systemName: "heart.fill")
+            favBtnOL.setImage(image, for: .normal)
+        } else {
+            let image = UIImage(systemName: "heart")
+            favBtnOL.setImage(image, for: .normal)
+        }
+    }
+    
+    @IBAction func addFavBtn(_ sender: Any) { // if it alleady in will delete it
         isFavorited.toggle()
-        updateButtonImage()
+
+        let isSaving = saveDataIfNotExist() // else delete
+        
+        updateButtonImage(isSaving)
     }
 }
 
@@ -224,7 +291,39 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
 
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        var teamID: String?
+
+        switch indexPath.section {
+        case 0:
+            let upComingEventRes = leaguesDetailsVM.upComingEvent[indexPath.item]
+            print("Tapped Upcoming Event: \(upComingEventRes)")
+        case 1:
+            let latestRes = leaguesDetailsVM.latestEvent[indexPath.item]
+            print("Tapped Latest Result: \(latestRes)")
+        default:
+            // Handle Team
+            let team = leaguesDetailsVM.teams[indexPath.item]
+            teamID = String(team.teamKey)
+        }
+        
+//        if let teamID = teamID {
+//            // Navigate to another screen
+//            let storyboard = UIStoryboard(name: "Storyboard", bundle: nil)
+//            let destinationVC = storyboard.instantiateViewController(withIdentifier: "Destenation") as! Destenation
+//            
+//            destinationVC.teamID = teamID
+//
+//            navigationController?.pushViewController(destinationVC, animated: true)
+//        }
+    }
 }
+
+
+
+
 
 /*
 // MARK: - Navigation
