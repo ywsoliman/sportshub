@@ -14,10 +14,12 @@ struct APIService: APIServiceProtocol {
     
     private init() {}
     
-    func fetch(league: String, onCompletion: @escaping ([League]) -> Void, onFailure: @escaping (String) -> Void) {
+    func fetchLeagues(onCompletion: @escaping ([League]) -> Void, onFailure: @escaping (String) -> Void) {
+        
+        guard let selectedSport = SelectedSport.sport else { return }
         
         let parameters = ["met": "Leagues", "APIkey": Constants.API_KEY]
-        let urlWithEndpoint = Constants.BASE_URL + league + "/"
+        let urlWithEndpoint = Constants.BASE_URL + selectedSport + "/"
         
         print(urlWithEndpoint)
         
