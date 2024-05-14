@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4CB02DA92BF3A89600334AB8 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB02DA82BF3A89600334AB8 /* CoreDataHelper.swift */; };
 		4CCBA9D62BF1D0B500A9FD9A /* IndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBA9D52BF1D0B500A9FD9A /* IndicatorManager.swift */; };
 		4CD334C42BF1321900058EE2 /* UpComingEventResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334C32BF1321900058EE2 /* UpComingEventResult.swift */; };
 		4CD334C62BF1324900058EE2 /* LatestEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334C52BF1324900058EE2 /* LatestEvents.swift */; };
@@ -18,6 +19,7 @@
 		4CD334D52BF16E1800058EE2 /* LeaguesDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334D42BF16E1800058EE2 /* LeaguesDetailsVM.swift */; };
 		4CD334D82BF1732E00058EE2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334D72BF1732E00058EE2 /* NetworkService.swift */; };
 		4CD334DA2BF1736500058EE2 /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334D92BF1736500058EE2 /* NetworkServiceProtocol.swift */; };
+		4CDC41E22BF3DDF00043967E /* CovertIntToUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDC41E12BF3DDF00043967E /* CovertIntToUUID.swift */; };
 		4CDC9F652BF070A400682CB5 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDC9F642BF070A400682CB5 /* FavoritesView.swift */; };
 		4CDC9F672BF070A600682CB5 /* FavoritesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDC9F662BF070A600682CB5 /* FavoritesVM.swift */; };
 		BE2A088D2BF1701D00524177 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2A088B2BF1701D00524177 /* PlayerTableViewCell.swift */; };
@@ -74,6 +76,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4CB02DA82BF3A89600334AB8 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		4CCBA9D52BF1D0B500A9FD9A /* IndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorManager.swift; sourceTree = "<group>"; };
 		4CD334C32BF1321900058EE2 /* UpComingEventResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpComingEventResult.swift; sourceTree = "<group>"; };
 		4CD334C52BF1324900058EE2 /* LatestEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEvents.swift; sourceTree = "<group>"; };
@@ -85,6 +88,7 @@
 		4CD334D42BF16E1800058EE2 /* LeaguesDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesDetailsVM.swift; sourceTree = "<group>"; };
 		4CD334D72BF1732E00058EE2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		4CD334D92BF1736500058EE2 /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		4CDC41E12BF3DDF00043967E /* CovertIntToUUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovertIntToUUID.swift; sourceTree = "<group>"; };
 		4CDC9F642BF070A400682CB5 /* FavoritesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		4CDC9F662BF070A600682CB5 /* FavoritesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVM.swift; sourceTree = "<group>"; };
 		BE2A088B2BF1701D00524177 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
@@ -152,6 +156,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4CB02DA72BF3A87D00334AB8 /* CoreDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				4CB02DA82BF3A89600334AB8 /* CoreDataHelper.swift */,
+			);
+			path = CoreDataManager;
+			sourceTree = "<group>";
+		};
 		4CCBA9D42BF1D09D00A9FD9A /* IndecatorManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +403,7 @@
 			children = (
 				BEBD01052BEED4C500BF6EC7 /* DarkOverlay.swift */,
 				BEDF0E882BF015D40082CBC3 /* NetworkIndicator.swift */,
+				4CDC41E12BF3DDF00043967E /* CovertIntToUUID.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -398,6 +411,7 @@
 		BEBD010B2BEEF01600BF6EC7 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				4CB02DA72BF3A87D00334AB8 /* CoreDataManager */,
 				4CD334D62BF1731A00058EE2 /* we want use this */,
 				BEBD010C2BEEF03F00BF6EC7 /* APIService.swift */,
 				BEBD01152BEEF93700BF6EC7 /* APIServiceProtocol.swift */,
@@ -584,6 +598,7 @@
 			files = (
 				BEBD01062BEED4C500BF6EC7 /* DarkOverlay.swift in Sources */,
 				BEBD01222BEF02D000BF6EC7 /* LeagueTableViewCell.swift in Sources */,
+				4CB02DA92BF3A89600334AB8 /* CoreDataHelper.swift in Sources */,
 				4CD334CC2BF1356900058EE2 /* LeaguesDetailsVC.swift in Sources */,
 				BEBD01142BEEF8F400BF6EC7 /* LeaguesViewModel.swift in Sources */,
 				4CD334CF2BF1364600058EE2 /* UpcomingEventsCell.swift in Sources */,
@@ -592,6 +607,7 @@
 				4CDC9F672BF070A600682CB5 /* FavoritesVM.swift in Sources */,
 				BE3719FD2BEE7CE800ACAA6C /* SportsHub.xcdatamodeld in Sources */,
 				BEBD01012BEEC3F000BF6EC7 /* SportsCollectionViewController.swift in Sources */,
+				4CDC41E22BF3DDF00043967E /* CovertIntToUUID.swift in Sources */,
 				BE3719F32BEE7CE800ACAA6C /* AppDelegate.swift in Sources */,
 				BEBD010D2BEEF03F00BF6EC7 /* APIService.swift in Sources */,
 				BE3719F52BEE7CE800ACAA6C /* SceneDelegate.swift in Sources */,
