@@ -51,15 +51,16 @@ class LeaguesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 4
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let destVC = storyboard.instantiateViewController(withIdentifier: "leagueDetailsVC") as? LeaguesDetailsVC {
+            destVC.modalPresentationStyle = .fullScreen
+            destVC.leagueId = String(leaguesViewModel.leagues[indexPath.row].leagueKey)
+            present(destVC, animated: true)
+        }
+        
     }
-    */
 
 }

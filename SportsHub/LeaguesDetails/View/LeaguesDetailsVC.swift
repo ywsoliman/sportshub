@@ -13,10 +13,14 @@ class LeaguesDetailsVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var isFavorited = false // this flag for change btnFav image
+    var leagueId: String?
     let leaguesDetailsVM = LeaguesDetailsVM()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard leagueId != nil else { return }
+        
         IndicatorManager.shared.setIndicator(on: self.view)
         
         fetchUpComingEvents()
@@ -123,9 +127,9 @@ class LeaguesDetailsVC: UIViewController {
         let image = UIImage(systemName: imageName)
         favBtnOL.setImage(image, for: .normal)
     }
-    // MARK: change leagu ID not to be static
+
     func fetchUpComingEvents(){
-        leaguesDetailsVM.fetchUpComingEvents(leagueId: "207", onSuccess: {
+        leaguesDetailsVM.fetchUpComingEvents(leagueId: leagueId!, onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
@@ -135,7 +139,7 @@ class LeaguesDetailsVC: UIViewController {
     }
     
     func fetchLatestEvent() {
-        leaguesDetailsVM.fetchLatestEvent(leagueId: "207", onSuccess: {
+        leaguesDetailsVM.fetchLatestEvent(leagueId: leagueId!, onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
@@ -145,7 +149,7 @@ class LeaguesDetailsVC: UIViewController {
     }
     
     func fetchTeams () {
-        leaguesDetailsVM.fetchTeams(leagueId: "207", onSuccess: {
+        leaguesDetailsVM.fetchTeams(leagueId: leagueId!, onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
