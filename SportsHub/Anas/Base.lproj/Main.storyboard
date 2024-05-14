@@ -106,7 +106,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ghd-mh-T2F">
-                                <rect key="frame" x="8" y="94" width="377" height="675"/>
+                                <rect key="frame" x="8" y="110" width="377" height="659"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pWS-Aj-PZa">
                                     <size key="itemSize" width="361" height="219"/>
@@ -332,7 +332,7 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jqb-GD-13f">
-                                <rect key="frame" x="327" y="59" width="50" height="35"/>
+                                <rect key="frame" x="327" y="75" width="50" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="6Rm-Ie-gY9"/>
                                 </constraints>
@@ -350,7 +350,7 @@
                             <constraint firstItem="Ghd-mh-T2F" firstAttribute="top" secondItem="Jqb-GD-13f" secondAttribute="bottom" id="Tvx-Px-LqG"/>
                             <constraint firstItem="Cpb-BQ-PeT" firstAttribute="trailing" secondItem="Jqb-GD-13f" secondAttribute="trailing" constant="16" id="Zrg-Gs-fBT"/>
                             <constraint firstItem="Ghd-mh-T2F" firstAttribute="bottom" secondItem="Cpb-BQ-PeT" secondAttribute="bottom" id="ngV-4B-kWm"/>
-                            <constraint firstItem="Jqb-GD-13f" firstAttribute="top" secondItem="Cpb-BQ-PeT" secondAttribute="top" id="pXs-7b-xlM"/>
+                            <constraint firstItem="Jqb-GD-13f" firstAttribute="top" secondItem="Cpb-BQ-PeT" secondAttribute="top" constant="16" id="pXs-7b-xlM"/>
                             <constraint firstItem="Cpb-BQ-PeT" firstAttribute="trailing" secondItem="Ghd-mh-T2F" secondAttribute="trailing" constant="8" id="w1c-IC-HUi"/>
                         </constraints>
                     </view>

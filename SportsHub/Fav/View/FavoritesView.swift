@@ -47,20 +47,38 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         } else {
             cell.leagueImage.image = UIImage(named: "SportsLogo")
         }
+        
+        cell.layer.cornerRadius = 10
+        cell.layer.masksToBounds = true
+        cell.layer.borderWidth = 1.0
+        cell.layer.borderColor = UIColor.black.cgColor
+        
+        cell.layer.shadowOpacity = 1
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+        cell.layer.shadowColor = UIColor.black.cgColor
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the league from Core Data
             let league = leagues[indexPath.row]
-            favoritesViewModel.deleteLeague(leagueKey: league.leagueKey!)
-            // Remove the league from the local array
-            leagues.remove(at: indexPath.row)
-            // Delete the row from the table view
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            let alert = UIAlertController(title: "Delete League", message: "Are you sure you want to delete this league?", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+                self.favoritesViewModel.deleteLeague(leagueKey: league.leagueKey!)
+                self.leagues.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }))
+            
+            present(alert, animated: true, completion: nil)
         }
     }
+
+    
 }
 
 class CustomTableViewCell: UITableViewCell {

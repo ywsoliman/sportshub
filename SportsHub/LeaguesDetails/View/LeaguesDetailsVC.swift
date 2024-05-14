@@ -15,7 +15,7 @@ class LeaguesDetailsVC: UIViewController {
     
     var isFavorited = false // this flag for change btnFav image
     let leaguesDetailsVM = LeaguesDetailsVM()
-    var leagueKey = 207
+    var leagueKey = 212
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -316,6 +316,10 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
 //        }
     }
 }
+
+
+
+
 
 /*
 // MARK: - Navigation
