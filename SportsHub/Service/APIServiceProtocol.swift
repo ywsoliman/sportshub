@@ -8,6 +8,6 @@
 import Foundation
 
 protocol APIServiceProtocol {
-    func fetchLeagues(onCompletion: @escaping ([League]) -> Void, onFailure: @escaping (String) -> Void)
-    func fetch(team: String, onCompletion: @escaping (Team) -> Void, onFailure: @escaping (String) -> Void)
+    func fetchLeagues(sport: String, onCompletion: @escaping ([League]) -> Void, onFailure: @escaping (String) -> Void)
+    func fetch(sport: String, team: String, onCompletion: @escaping (Team) -> Void, onFailure: @escaping (String) -> Void)
 }
