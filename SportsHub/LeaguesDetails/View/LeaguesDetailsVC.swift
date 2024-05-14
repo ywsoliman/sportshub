@@ -15,25 +15,30 @@ class LeaguesDetailsVC: UIViewController {
     
     var isFavorited = false // this flag for change btnFav image
     let leaguesDetailsVM = LeaguesDetailsVM()
-    var leagueKey = 208
+    var leagueKey = 207
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        isCurrentLeagueSaved() // see favBtn img will be heart.fill or not
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
+
         IndicatorManager.shared.setIndicator(on: self.view)
         
         fetchUpComingEvents()
         fetchLatestEvent()
         fetchTeams()
-          
-        isCurrentLeagueSaved()
-        
-        // Do any additional setup after loading the view.
-        let layOut = UICollectionViewCompositionalLayout{ index, enviroment in
-            return self.layoutForSection(at: index)
+                
+        let layOut = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            return self.layoutForSection(at: sectionIndex)
         }
+
         collectionView.collectionViewLayout = layOut
     }
-        
+
     func drawUpComingEvents() -> NSCollectionLayoutSection{
         
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
@@ -120,7 +125,7 @@ class LeaguesDetailsVC: UIViewController {
             return drawTeams()
         }
     }
-    
+
     // MARK: Helper methods :-
     func updateButtonImage(_ flag: Bool) {
         var imageName = ""
@@ -134,7 +139,7 @@ class LeaguesDetailsVC: UIViewController {
     }
     // MARK: change leagu ID not to be static
     func fetchUpComingEvents(){
-        leaguesDetailsVM.fetchUpComingEvents(leagueId: "207", onSuccess: {
+        leaguesDetailsVM.fetchUpComingEvents(leagueId: String(leagueKey), onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
@@ -144,7 +149,7 @@ class LeaguesDetailsVC: UIViewController {
     }
     
     func fetchLatestEvent() {
-        leaguesDetailsVM.fetchLatestEvent(leagueId: "207", onSuccess: {
+        leaguesDetailsVM.fetchLatestEvent(leagueId: String(leagueKey), onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
@@ -154,7 +159,7 @@ class LeaguesDetailsVC: UIViewController {
     }
     
     func fetchTeams () {
-        leaguesDetailsVM.fetchTeams(leagueId: "207", onSuccess: {
+        leaguesDetailsVM.fetchTeams(leagueId: String(leagueKey), onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
@@ -282,30 +287,35 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
 
         return cell
     }
-}
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        var teamID: String?
 
-
-
-extension Int {
-    func toUUID() -> UUID {
-        var bytes: [UInt8] = []
-        var value = self
-        for _ in 0..<MemoryLayout.size(ofValue: self) {
-            bytes.append(UInt8(value & 0xFF))
-            value >>= 8
-        }
-        while bytes.count < 16 {
-            bytes.append(0)
+        switch indexPath.section {
+        case 0:
+            let upComingEventRes = leaguesDetailsVM.upComingEvent[indexPath.item]
+            print("Tapped Upcoming Event: \(upComingEventRes)")
+        case 1:
+            let latestRes = leaguesDetailsVM.latestEvent[indexPath.item]
+            print("Tapped Latest Result: \(latestRes)")
+        default:
+            // Handle Team
+            let team = leaguesDetailsVM.teams[indexPath.item]
+            teamID = String(team.teamKey)
         }
         
-        // Convert to uuid_t (array of UInt8)
-        let uuidBytes = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)(bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8], bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15])
-        
-        return UUID(uuid: uuidBytes)
+//        if let teamID = teamID {
+//            // Navigate to another screen
+//            let storyboard = UIStoryboard(name: "Storyboard", bundle: nil)
+//            let destinationVC = storyboard.instantiateViewController(withIdentifier: "Destenation") as! Destenation
+//            
+//            destinationVC.teamID = teamID
+//
+//            navigationController?.pushViewController(destinationVC, animated: true)
+//        }
     }
 }
-
-
 
 /*
 // MARK: - Navigation

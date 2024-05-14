@@ -19,6 +19,7 @@
 		4CD334D52BF16E1800058EE2 /* LeaguesDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334D42BF16E1800058EE2 /* LeaguesDetailsVM.swift */; };
 		4CD334D82BF1732E00058EE2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334D72BF1732E00058EE2 /* NetworkService.swift */; };
 		4CD334DA2BF1736500058EE2 /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334D92BF1736500058EE2 /* NetworkServiceProtocol.swift */; };
+		4CDC41E22BF3DDF00043967E /* CovertIntToUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDC41E12BF3DDF00043967E /* CovertIntToUUID.swift */; };
 		4CDC9F652BF070A400682CB5 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDC9F642BF070A400682CB5 /* FavoritesView.swift */; };
 		4CDC9F672BF070A600682CB5 /* FavoritesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDC9F662BF070A600682CB5 /* FavoritesVM.swift */; };
 		BE3719F32BEE7CE800ACAA6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3719F22BEE7CE800ACAA6C /* AppDelegate.swift */; };
@@ -78,6 +79,7 @@
 		4CD334D42BF16E1800058EE2 /* LeaguesDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesDetailsVM.swift; sourceTree = "<group>"; };
 		4CD334D72BF1732E00058EE2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		4CD334D92BF1736500058EE2 /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		4CDC41E12BF3DDF00043967E /* CovertIntToUUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovertIntToUUID.swift; sourceTree = "<group>"; };
 		4CDC9F642BF070A400682CB5 /* FavoritesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		4CDC9F662BF070A600682CB5 /* FavoritesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVM.swift; sourceTree = "<group>"; };
 		BE3719EF2BEE7CE800ACAA6C /* SportsHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -361,6 +363,7 @@
 			isa = PBXGroup;
 			children = (
 				BEBD01052BEED4C500BF6EC7 /* DarkOverlay.swift */,
+				4CDC41E12BF3DDF00043967E /* CovertIntToUUID.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -535,6 +538,7 @@
 				4CDC9F672BF070A600682CB5 /* FavoritesVM.swift in Sources */,
 				BE3719FD2BEE7CE800ACAA6C /* SportsHub.xcdatamodeld in Sources */,
 				BEBD01012BEEC3F000BF6EC7 /* SportsCollectionViewController.swift in Sources */,
+				4CDC41E22BF3DDF00043967E /* CovertIntToUUID.swift in Sources */,
 				BE3719F32BEE7CE800ACAA6C /* AppDelegate.swift in Sources */,
 				BEBD010D2BEEF03F00BF6EC7 /* APIService.swift in Sources */,
 				BE3719F52BEE7CE800ACAA6C /* SceneDelegate.swift in Sources */,
