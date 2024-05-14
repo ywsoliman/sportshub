@@ -35,8 +35,8 @@ final class APIServiceTests: XCTestCase {
     func testFetchingTeams() {
         let expectation = expectation(description: "Watning for team API..")
         
-        APIService.shared.fetch(sport: "football", team: "80") { team in
-            XCTAssertEqual(String(team.teamKey), "80")
+        APIService.shared.fetchTeam(sport: "football", team: "80") { team in
+            XCTAssertEqual(team.teamKey, 80)
             expectation.fulfill()
         } onFailure: { error in
             XCTFail()
