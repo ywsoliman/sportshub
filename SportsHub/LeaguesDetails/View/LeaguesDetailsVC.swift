@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class LeaguesDetailsVC: UIViewController {
 
@@ -14,6 +15,7 @@ class LeaguesDetailsVC: UIViewController {
     
     var isFavorited = false // this flag for change btnFav image
     let leaguesDetailsVM = LeaguesDetailsVM()
+    var leagueKey = 208
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,8 @@ class LeaguesDetailsVC: UIViewController {
         fetchLatestEvent()
         fetchTeams()
           
+        isCurrentLeagueSaved()
+        
         // Do any additional setup after loading the view.
         let layOut = UICollectionViewCompositionalLayout{ index, enviroment in
             return self.layoutForSection(at: index)
@@ -118,12 +122,17 @@ class LeaguesDetailsVC: UIViewController {
     }
     
     // MARK: Helper methods :-
-    func updateButtonImage() {
-        let imageName = isFavorited ? "heart.fill" : "heart"
+    func updateButtonImage(_ flag: Bool) {
+        var imageName = ""
+        if flag {
+            imageName = "heart.fill"
+        } else {
+            imageName = "heart"
+        }
         let image = UIImage(systemName: imageName)
         favBtnOL.setImage(image, for: .normal)
     }
-    
+    // MARK: change leagu ID not to be static
     func fetchUpComingEvents(){
         leaguesDetailsVM.fetchUpComingEvents(leagueId: "207", onSuccess: {
             self.collectionView.reloadData()
@@ -154,12 +163,63 @@ class LeaguesDetailsVC: UIViewController {
         }) // MARK: this id i will get from fav or leagues
     }
     
-    @IBAction func addFavBtn(_ sender: Any) {
-        isFavorited.toggle()
-        updateButtonImage()
+    func saveDataIfNotExist() -> Bool{
+        let leagueKey = leagueKey.toUUID()
+        let existingLeagues = leaguesDetailsVM.fetchAllLeagues()
+        var isSaving = false
+        
+        if let existingLeague = existingLeagues.first(where: { $0.leagueKey == leagueKey }) {
+            if let existingLeagueKey = existingLeague.leagueKey {
+                leaguesDetailsVM.deleteLeague(leagueKey: existingLeagueKey)
+                isSaving = false
+            } else {
+                print("Error: Existing league key is nil")
+            }
+        } else {
+            isSaving = true
+            if let logoURLString = leaguesDetailsVM.upComingEvent.first?.leagueLogo,
+               let logoURL = URL(string: logoURLString) {
+               let leagueName = leaguesDetailsVM.upComingEvent.first?.leagueName
+
+                KingfisherManager.shared.retrieveImage(with: logoURL) { result in
+                    switch result {
+                    case .success(let imageResult):
+                        if let imageData = imageResult.image.kf.pngRepresentation() {
+                            self.leaguesDetailsVM.saveLeague(leagueKey: leagueKey, leagueLogo: imageData, leagueName: leagueName ?? "Anas")
+                        } else {
+                            print("Failed to convert image to data")
+                        }
+                    case .failure(let error):
+                        print("Error loading image:", error.localizedDescription)
+                    }
+                }
+            } else {
+                print("No logo URL provided or invalid URL")
+            }
+        }
+        return isSaving
     }
     
+    func isCurrentLeagueSaved() {
+        let existingLeagues = leaguesDetailsVM.fetchAllLeagues()
+        let leagueKey = leagueKey.toUUID()
 
+        if let existingLeague = existingLeagues.first(where: { $0.leagueKey == leagueKey }) {
+            let image = UIImage(systemName: "heart.fill")
+            favBtnOL.setImage(image, for: .normal)
+        } else {
+            let image = UIImage(systemName: "heart")
+            favBtnOL.setImage(image, for: .normal)
+        }
+    }
+    
+    @IBAction func addFavBtn(_ sender: Any) { // if it alleady in will delete it
+        isFavorited.toggle()
+
+        let isSaving = saveDataIfNotExist() // else delete
+        
+        updateButtonImage(isSaving)
+    }
 }
 
 extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -205,25 +265,47 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
         }
         
         if let teamsCell = cell as? TeamsCell {
-            let team = leaguesDetailsVM.teams[indexPath.item] // Assuming you have an array of teams
+            let team = leaguesDetailsVM.teams[indexPath.item]
             teamsCell.setUp(team)
         }
-        
 
-        
-        //
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
         cell.layer.borderWidth = 1.0
         cell.layer.borderColor = UIColor.black.cgColor
         
-        cell.layer.shadowOpacity = 0.1
+        cell.layer.shadowOpacity = 1
         cell.layer.shadowOffset = CGSize(width: 0, height: 2)
         cell.layer.shadowColor = UIColor.black.cgColor
-    
+        
+        //cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
+
         return cell
     }
 }
+
+
+
+extension Int {
+    func toUUID() -> UUID {
+        var bytes: [UInt8] = []
+        var value = self
+        for _ in 0..<MemoryLayout.size(ofValue: self) {
+            bytes.append(UInt8(value & 0xFF))
+            value >>= 8
+        }
+        while bytes.count < 16 {
+            bytes.append(0)
+        }
+        
+        // Convert to uuid_t (array of UInt8)
+        let uuidBytes = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)(bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8], bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15])
+        
+        return UUID(uuid: uuidBytes)
+    }
+}
+
+
 
 /*
 // MARK: - Navigation
@@ -262,5 +344,24 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      
      return section
  }
+ 
+ */
+
+
+
+
+
+
+/*
+ 
+ Hello, my name is Anas. I recently completed a 9-month program in Mobile Applications Development at
+
+  -  ITI. My journey into programming began with CS50, an introduction to computer science, and
+ 
+  -  progressed to the Meta iOS track. Now, I'm eager to start my career as a junior iOS Developer
+    
+  -  and contribute to innovative projects in the field. I'm passionate about creating good user
+ 
+  -  experiences and leveraging the latest technologies to build peutyfull applications.
  
  */
