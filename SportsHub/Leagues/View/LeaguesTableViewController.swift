@@ -10,7 +10,6 @@ import UIKit
 class LeaguesTableViewController: UITableViewController {
 
     private var leaguesViewModel: LeaguesViewModel!
-    var sportName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +23,9 @@ class LeaguesTableViewController: UITableViewController {
             networkIndicator.stopIndicator()
             self?.tableView.reloadData()
         }
-        if let sportName {
+        if let selectedSport = SelectedSport.sport {
             networkIndicator.setIndicator()
-            leaguesViewModel.fetchLeagues(league: sportName)
+            leaguesViewModel.fetchLeagues(league: selectedSport)
         }
     }
 

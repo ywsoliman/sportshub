@@ -22,7 +22,7 @@ class LeaguesViewModel {
     }
     
     func fetchLeagues(league: String) {
-        service.fetch(league: league) { leagues in
+        service.fetchLeagues { leagues in
             self.leagues = leagues
         } onFailure: { error in
             print(error)

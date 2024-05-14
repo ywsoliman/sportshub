@@ -67,8 +67,8 @@ class SportsCollectionViewController: UICollectionViewController, UICollectionVi
         
         if let cell = sender as? SportCollectionViewCell, let indexPath = collectionView.indexPath(for: cell) {
             
-            let league = sportsViewModel.sports[indexPath.row].name.lowercased()            
-            leagueVC.sportName = league
+            let sport = sportsViewModel.sports[indexPath.row].name.lowercased()
+            SelectedSport.sport = sport
             
         }
         
