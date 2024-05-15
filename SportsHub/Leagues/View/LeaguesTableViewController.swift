@@ -57,7 +57,7 @@ class LeaguesTableViewController: UITableViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let destVC = storyboard.instantiateViewController(withIdentifier: "leagueDetailsVC") as? LeaguesDetailsVC {
             destVC.modalPresentationStyle = .fullScreen
-            destVC.leagueId = String(leaguesViewModel.leagues[indexPath.row].leagueKey)
+            destVC.leagueId = String(leaguesViewModel.leagues[indexPath.section].leagueKey)
             present(destVC, animated: true)
         }
         

@@ -15,20 +15,19 @@ class CoreDataHelper {
     
     // MARK: - Core Data stack
     
-    lazy var persistentContainer: NSPersistentContainer = {
+    lazy var context: NSManagedObjectContext = {
         let container = NSPersistentContainer(name: "SportsHub")
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        return container
+        return container.viewContext
     }()
     
     // MARK: - Core Data Saving support
     
     func saveContext() {
-        let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
@@ -42,7 +41,6 @@ class CoreDataHelper {
     // MARK: - CRUD operations
     
     func saveLeague(leagueKey: UUID, leagueLogo: Data?, leagueName: String) {
-        let context = persistentContainer.viewContext
         let newLeague = LeagueEntitie(context: context)
         newLeague.leagueKey = leagueKey
         newLeague.leagueLogo = leagueLogo
@@ -51,7 +49,6 @@ class CoreDataHelper {
     }
     
     func fetchAllLeagues() -> [LeagueEntitie] {
-        let context = persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<LeagueEntitie> = LeagueEntitie.fetchRequest()
         do {
             let leagues = try context.fetch(fetchRequest)
@@ -63,7 +60,6 @@ class CoreDataHelper {
     }
     
     func deleteLeague(leagueKey: UUID) {
-        let context = persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<LeagueEntitie> = LeagueEntitie.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "leagueKey == %@", leagueKey as CVarArg)
         do {

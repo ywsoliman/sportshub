@@ -27,8 +27,6 @@ class LeaguesDetailsVC: UIViewController {
         
         guard leagueId != nil else { return }
         
-        // Do any additional setup after loading the view.
-
         IndicatorManager.shared.setIndicator(on: self.view)
         
         fetchUpComingEvents()
@@ -229,6 +227,9 @@ class LeaguesDetailsVC: UIViewController {
         
         updateButtonImage(isSaving)
     }
+    @IBAction func backBtn(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
 }
 
 extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -319,6 +320,20 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
 //            navigationController?.pushViewController(destinationVC, animated: true)
 //        }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let destVC = segue.destination as? TeamDetailsViewController else { return }
+        
+        if let cell = sender as? TeamsCell,
+           let indexPath = collectionView.indexPath(for: cell) {
+            
+            destVC.teamKey = String(leaguesDetailsVM.teams[indexPath.row].teamKey)
+            
+        }
+        
+    }
+    
 }
 
 
