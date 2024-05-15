@@ -45,13 +45,11 @@ class LeaguesDetailsVC: UIViewController {
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(219))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16)
-        
-        
-        
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
         
         section.visibleItemsInvalidationHandler = { (items, offset, environment) in
             items.forEach { item in
@@ -62,6 +60,20 @@ class LeaguesDetailsVC: UIViewController {
                 item.transform = CGAffineTransform(scaleX: scale, y: scale)
             }
         }
+        
+        // MARK: HEADER
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(32))
+        
+        let headerSupplemntrry = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        
+        headerSupplemntrry.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
+        
+        headerSupplemntrry.pinToVisibleBounds = true
+        
+        section.boundarySupplementaryItems = [headerSupplemntrry]
+        
+        
+        
         return section
     }
     
@@ -71,7 +83,7 @@ class LeaguesDetailsVC: UIViewController {
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(101))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8)
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0)
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 32, leading: 0, bottom: 8, trailing: 0)
         
@@ -87,6 +99,18 @@ class LeaguesDetailsVC: UIViewController {
                 item.transform = CGAffineTransform(scaleX: scale, y: scale)
             }
         }
+        
+        // MARK: HEADER
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(52))
+        
+        let headerSupplemntrry = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        
+        headerSupplemntrry.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 0)
+        
+        headerSupplemntrry.pinToVisibleBounds = true
+        
+        section.boundarySupplementaryItems = [headerSupplemntrry]
+        
 
         
         return section
@@ -101,7 +125,7 @@ class LeaguesDetailsVC: UIViewController {
         group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16)
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = NSDirectionalEdgeInsets(top: 32, leading: 16, bottom: 16, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 32, leading: 0, bottom: 16, trailing: 0)
         
         section.visibleItemsInvalidationHandler = { (items, offset, environment) in
             items.forEach { item in
@@ -111,6 +135,18 @@ class LeaguesDetailsVC: UIViewController {
                 item.transform = CGAffineTransform(rotationAngle: rotationAngle)
             }
         }
+        
+        // MARK: HEADER
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(32))
+        
+        let headerSupplemntrry = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        
+        headerSupplemntrry.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
+        
+        headerSupplemntrry.pinToVisibleBounds = true
+        
+        section.boundarySupplementaryItems = [headerSupplemntrry]
+        
         return section
     }
     
@@ -319,6 +355,20 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
 //        }
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderView", for: indexPath) as! HeaderView
+        switch(indexPath.section) {
+        case 0:
+            header.headerSection.text = "Upcoming Event"
+        case 1:
+            header.headerSection.text = "Latest Result"
+        default:
+            header.headerSection.text = "Teams"
+
+        }
+        return header
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         guard let destVC = segue.destination as? TeamDetailsViewController else { return }
@@ -335,7 +385,9 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
     
 }
 
-
+class HeaderView: UICollectionReusableView {
+    @IBOutlet weak var headerSection: UILabel!
+}
 
 
 
