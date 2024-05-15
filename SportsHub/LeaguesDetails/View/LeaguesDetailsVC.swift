@@ -316,6 +316,7 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
             }
         }
 
+
         
         if let latestResCell = cell as? LatestResultsCell {
             let latestRes = leaguesDetailsVM.latestEvent[indexPath.item]

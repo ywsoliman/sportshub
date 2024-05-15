@@ -21,7 +21,7 @@ class LeaguesDetailsVM {
     // MARK: first work for get API for Up coming events
     func fetchUpComingEvents(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
         let parameters: [String: Any] = [
-            "leagueid": leagueId,
+            "leagueId": leagueId,
             "from": currentDate,
             "to": afterCurrentDate
         ]
