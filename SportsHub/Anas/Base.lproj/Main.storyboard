@@ -503,6 +503,9 @@
                                 <rect key="frame" x="334.33333333333331" y="8" width="50.666666666666686" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system"/>
+                                <connections>
+                                    <action selector="favBtn:" destination="Awg-pk-TCB" eventType="touchUpInside" id="4bg-6x-NXu"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2tY-F1-BST"/>
@@ -524,11 +527,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="WhK-z4-HQs">
-                        <barButtonItem key="rightBarButtonItem" image="star" catalog="system" id="D5F-S1-jnK">
-                            <connections>
-                                <action selector="favBarBtn:" destination="Awg-pk-TCB" id="8m5-eA-dGq"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="star" catalog="system" id="D5F-S1-jnK"/>
                     </navigationItem>
                     <connections>
                         <outlet property="coachLabel" destination="apM-YN-A3Q" id="kqx-iW-Kh2"/>

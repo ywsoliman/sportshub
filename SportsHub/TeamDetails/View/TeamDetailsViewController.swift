@@ -22,7 +22,7 @@ class TeamDetailsViewController: UIViewController {
         setupTableView()
         
         let networkIndicator = NetworkIndicator(view: view)
-
+        
         teamDetailsViewModel = TeamDetailsViewModel(service: APIService.shared)
         teamDetailsViewModel.fetch(key: leagueDetailsViewModel.selectedTeamKey)
         networkIndicator.setIndicator()
@@ -56,12 +56,18 @@ class TeamDetailsViewController: UIViewController {
         tableView.register(PlayerTableViewCell.nib(), forCellReuseIdentifier: PlayerTableViewCell.identifier)
     }
     
-    @IBAction func favBarBtn(_ sender: UIBarButtonItem) {
-        if sender.image == UIImage(systemName: "star") {
-            sender.image = UIImage(systemName: "star.fill")
+    
+    @IBAction func favBtn(_ sender: UIButton) {
+        
+        if sender.imageView?.image == UIImage(systemName: "heart") {
+            DispatchQueue.global().async {
+                CoreDataHelper.shared.insert(team: self.teamDetailsViewModel.team!)
+            }
+            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         } else {
-            sender.image = UIImage(systemName: "star")
+            sender.setImage(UIImage(systemName: "heart"), for: .normal)
         }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -30,23 +30,40 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return leagues.count
+        switch section {
+        case 0:
+            return leagues.count
+        default:
+            return favoritesViewModel.fetchTeams().count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomTableViewCell
-        let league = leagues[indexPath.row]
-        cell.leagueName.text = league.leagueName
-        // Set league image if available
-        if let leagueImage = league.leagueLogo {
-            cell.leagueImage.image = UIImage(data: leagueImage)
+        
+        
+        let team = favoritesViewModel.fetchTeams()[indexPath.row]
+        
+        cell.leagueName.text = team.teamName
+        if let logo = team.teamLogo {
+            cell.leagueImage.kf.setImage(with: URL(string: logo))
         } else {
-            cell.leagueImage.image = UIImage(named: "SportsLogo")
+            cell.leagueImage.image = UIImage(named: "no-image-placeholder")
         }
+        
+//        let league = leagues[indexPath.row]
+//        cell.leagueName.text = league.leagueName
+//        // Set league image if available
+//        if let leagueImage = league.leagueLogo {
+//            cell.leagueImage.image = UIImage(data: leagueImage)
+//        } else {
+//            cell.leagueImage.image = UIImage(named: "SportsLogo")
+//        }
         
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
@@ -60,25 +77,40 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         return cell
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Favorite Leagues"
+        default:
+            return "Favorite Teams"
+        }
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let league = leagues[indexPath.row]
             
             let alert = UIAlertController(title: "Delete League", message: "Are you sure you want to delete this league?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             
             alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
-                self.favoritesViewModel.deleteLeague(leagueKey: league.leagueKey!)
-                self.leagues.remove(at: indexPath.row)
+                
+                if indexPath.section == 0 {
+                    self.favoritesViewModel.deleteLeague(leagueKey: self.leagues[indexPath.row].leagueKey!)
+                    self.leagues.remove(at: indexPath.row)
+                } else {
+                    self.favoritesViewModel.deleteTeam(withKey: self.favoritesViewModel.fetchTeams()[indexPath.row].teamKey)
+                    print(self.favoritesViewModel.fetchTeams())
+                }
+                
                 tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                
             }))
             
             present(alert, animated: true, completion: nil)
         }
     }
-
-    
 }
 
 class CustomTableViewCell: UITableViewCell {
