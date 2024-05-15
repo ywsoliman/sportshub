@@ -339,8 +339,8 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
 
         switch indexPath.section {
         case 0:
-            let upComingEventRes = leaguesDetailsVM.upComingEvent[indexPath.item]
-            print("Tapped Upcoming Event: \(upComingEventRes)")
+            //let upComingEventRes = leaguesDetailsVM.upComingEvent[indexPath.item]
+            print("Tapped Upcoming Event: ")
         case 1:
             let latestRes = leaguesDetailsVM.latestEvent[indexPath.item]
             print("Tapped Latest Result: \(latestRes)")

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4CB02DA92BF3A89600334AB8 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB02DA82BF3A89600334AB8 /* CoreDataHelper.swift */; };
 		4CCBA9D62BF1D0B500A9FD9A /* IndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBA9D52BF1D0B500A9FD9A /* IndicatorManager.swift */; };
+		4CCCB5952BF540BC0069B1A6 /* NetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCB5942BF540BC0069B1A6 /* NetworkServiceTest.swift */; };
+		4CCCB5972BF548810069B1A6 /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCB5962BF548810069B1A6 /* NetworkServiceMock.swift */; };
 		4CD334C42BF1321900058EE2 /* UpComingEventResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334C32BF1321900058EE2 /* UpComingEventResult.swift */; };
 		4CD334C62BF1324900058EE2 /* LatestEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334C52BF1324900058EE2 /* LatestEvents.swift */; };
 		4CD334C82BF1325A00058EE2 /* Teams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334C72BF1325A00058EE2 /* Teams.swift */; };
@@ -80,6 +82,8 @@
 /* Begin PBXFileReference section */
 		4CB02DA82BF3A89600334AB8 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		4CCBA9D52BF1D0B500A9FD9A /* IndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorManager.swift; sourceTree = "<group>"; };
+		4CCCB5942BF540BC0069B1A6 /* NetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTest.swift; sourceTree = "<group>"; };
+		4CCCB5962BF548810069B1A6 /* NetworkServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
 		4CD334C32BF1321900058EE2 /* UpComingEventResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpComingEventResult.swift; sourceTree = "<group>"; };
 		4CD334C52BF1324900058EE2 /* LatestEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEvents.swift; sourceTree = "<group>"; };
 		4CD334C72BF1325A00058EE2 /* Teams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teams.swift; sourceTree = "<group>"; };
@@ -290,6 +294,7 @@
 			children = (
 				BEA83D992BF40AC80039BD59 /* APIMocking */,
 				BE371A0C2BEE7CEA00ACAA6C /* APIServiceTests.swift */,
+				4CCCB5942BF540BC0069B1A6 /* NetworkServiceTest.swift */,
 			);
 			path = SportsHubTests;
 			sourceTree = "<group>";
@@ -408,6 +413,7 @@
 			children = (
 				BEA83D9A2BF40ADD0039BD59 /* APIServiceMock.swift */,
 				BEA83D9C2BF40AEC0039BD59 /* APIServiceMockTests.swift */,
+				4CCCB5962BF548810069B1A6 /* NetworkServiceMock.swift */,
 			);
 			path = APIMocking;
 			sourceTree = "<group>";
@@ -656,8 +662,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CCCB5972BF548810069B1A6 /* NetworkServiceMock.swift in Sources */,
 				BEA83D9B2BF40ADD0039BD59 /* APIServiceMock.swift in Sources */,
 				BEA83D9D2BF40AEC0039BD59 /* APIServiceMockTests.swift in Sources */,
+				4CCCB5952BF540BC0069B1A6 /* NetworkServiceTest.swift in Sources */,
 				BE371A0D2BEE7CEA00ACAA6C /* APIServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
