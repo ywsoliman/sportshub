@@ -14,12 +14,10 @@ struct APIService: APIServiceProtocol {
     
     private init() {}
     
-    func fetchLeagues(onCompletion: @escaping ([League]) -> Void, onFailure: @escaping (String) -> Void) {
-        
-        guard let selectedSport = SelectedSport.sport else { return }
+    func fetchLeagues(sport: String, onCompletion: @escaping ([League]) -> Void, onFailure: @escaping (String) -> Void) {
         
         let parameters = ["met": "Leagues", "APIkey": Constants.API_KEY]
-        let urlWithEndpoint = Constants.BASE_URL + selectedSport + "/"
+        let urlWithEndpoint = Constants.BASE_URL + sport + "/"
         
         print(urlWithEndpoint)
         
@@ -38,10 +36,10 @@ struct APIService: APIServiceProtocol {
         
     }
     // https://apiv2.allsportsapi.com/cricket/?&met=Teams&teamId=138&APIkey=!_your_account_APIkey_!
-    func fetch(team: String, onCompletion: @escaping (Team) -> Void, onFailure: @escaping (String) -> Void) {
+    func fetchTeam(sport: String, team: String, onCompletion: @escaping (Team) -> Void, onFailure: @escaping (String) -> Void) {
         
         let parameters = ["met": "Teams", "teamId": team, "APIkey": Constants.API_KEY]
-        let urlWithEndpoint = Constants.BASE_URL + "football/"
+        let urlWithEndpoint = Constants.BASE_URL + sport + "/"
         
         AF.request(urlWithEndpoint, parameters: parameters).responseDecodable(of: TeamResponse.self) { response in
             
