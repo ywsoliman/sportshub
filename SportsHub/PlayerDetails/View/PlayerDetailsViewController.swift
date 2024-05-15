@@ -10,10 +10,12 @@ import UIKit
 class PlayerDetailsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    var player: Player?
+    
     private let sections = ["Number", "Name", "Age", "Type", "Matches Played", "Goals"]
     private var properities: [String] = []
     private var headerView: PlayerHeaderUIView!
+    
+    var teamDetailsViewModel: TeamDetailsViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +23,7 @@ class PlayerDetailsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        guard let player else { return }
+        guard let player = teamDetailsViewModel.selectedPlayer else { return }
         
         headerView = PlayerHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 200))
         tableView.tableHeaderView = headerView
@@ -52,8 +54,8 @@ extension PlayerDetailsViewController: UITableViewDelegate, UITableViewDataSourc
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "playerDetailsCell", for: indexPath)
         
-        guard let player = player else { return UITableViewCell() }
-        
+        guard let player = teamDetailsViewModel.selectedPlayer else { return UITableViewCell() }
+                
         cell.textLabel?.text = properities[indexPath.section]
         headerView.playerImage.kf.setImage(
             with: URL(string: player.playerImage),

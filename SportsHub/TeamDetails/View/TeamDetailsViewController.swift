@@ -10,7 +10,8 @@ import UIKit
 class TeamDetailsViewController: UIViewController {
     
     private var teamDetailsViewModel: TeamDetailsViewModel!
-    var teamKey: String!
+    var leagueDetailsViewModel: LeaguesDetailsVM!
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var teamImageView: UIImageView!
     @IBOutlet weak var coachLabel: UILabel!
@@ -23,7 +24,7 @@ class TeamDetailsViewController: UIViewController {
         let networkIndicator = NetworkIndicator(view: view)
 
         teamDetailsViewModel = TeamDetailsViewModel(service: APIService.shared)
-        teamDetailsViewModel.fetch(key: teamKey)
+        teamDetailsViewModel.fetch(key: leagueDetailsViewModel.selectedTeamKey)
         networkIndicator.setIndicator()
         
         teamDetailsViewModel.bindTeamDetailsViewModelToController = { [weak self] in
@@ -76,7 +77,9 @@ class TeamDetailsViewController: UIViewController {
         if let cell = sender as? PlayerTableViewCell,
            let indexPath = tableView.indexPath(for: cell) {
             
-            destVC.player = teamDetailsViewModel.team?.players?[indexPath.section]
+            
+            teamDetailsViewModel.selectedPlayer = teamDetailsViewModel.team?.players?[indexPath.section]
+            destVC.teamDetailsViewModel = teamDetailsViewModel
             
         }
         

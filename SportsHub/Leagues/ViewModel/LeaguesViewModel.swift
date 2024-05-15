@@ -16,6 +16,7 @@ class LeaguesViewModel {
         }
     }
     var bindLeaguesViewModelToController: (() -> ()) = {}
+    var selectedLeague: String!
     
     init(service: APIServiceProtocol) {
         self.service = service

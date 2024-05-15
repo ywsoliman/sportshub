@@ -10,7 +10,6 @@ import UIKit
 class SportsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     private var sportsViewModel: SportsViewModel!
-    
     private let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     private let itemsSpacing: CGFloat = 8
     
@@ -63,7 +62,7 @@ class SportsCollectionViewController: UICollectionViewController, UICollectionVi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        guard let leagueVC = segue.destination as? LeaguesTableViewController else { return }
+        guard segue.destination is LeaguesTableViewController else { return }
         
         if let cell = sender as? SportCollectionViewCell, let indexPath = collectionView.indexPath(for: cell) {
             
