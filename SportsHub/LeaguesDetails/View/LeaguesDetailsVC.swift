@@ -163,7 +163,7 @@ class LeaguesDetailsVC: UIViewController {
 
     // MARK: Helper methods :-
     func updateButtonImage(_ flag: Bool) {
-        var imageName = ""
+        var imageName = "heart"
         if flag {
             imageName = "heart.fill"
         } else {
@@ -179,7 +179,14 @@ class LeaguesDetailsVC: UIViewController {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
+            print("==========================================")
+            print("==========================================")
+            print("==========================================")
             print("Error fetching upcoming events:", error)
+            print("==========================================")
+            print("==========================================")
+            print("==========================================")
+
             IndicatorManager.shared.stopIndicator()
         })
     }
@@ -271,7 +278,7 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
             case 0:
-            return max(leaguesDetailsVM.upComingEvent.count, 1)
+            return leaguesDetailsVM.upComingEvent.count > 0 ? leaguesDetailsVM.upComingEvent.count : 1
             case 1:
                 return leaguesDetailsVM.latestEvent.count
             default:
@@ -297,6 +304,7 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        
         if leaguesDetailsVM.upComingEvent.count > 0 {
             if let upComingEventsCell = cell as? UpcomingEventsCell {
                 let upComingEventRes = leaguesDetailsVM.upComingEvent[indexPath.item]

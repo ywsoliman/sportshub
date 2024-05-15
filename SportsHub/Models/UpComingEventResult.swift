@@ -15,14 +15,14 @@ struct UpComingEventResult: Codable {
 
 // MARK: - Result
 struct UpComingEvents: Codable {
-    let eventKey: Int
-    let eventDate, eventTime, eventHomeTeam: String
-    let eventAwayTeam: String
-    let eventFinalResult: String
-    let leagueName: String
-    let leagueRound: String
-    let homeTeamLogo, awayTeamLogo: String
-    let leagueLogo: String
+    let eventKey: Int?
+    let eventDate, eventTime, eventHomeTeam: String?
+    let eventAwayTeam: String?
+    let eventFinalResult: String?
+    let leagueName: String?
+    let leagueRound: String?
+    let homeTeamLogo, awayTeamLogo: String?
+    let leagueLogo: String?
 
     enum CodingKeys: String, CodingKey {
         case eventKey = "event_key"

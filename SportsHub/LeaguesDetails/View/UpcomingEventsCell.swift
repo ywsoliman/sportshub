@@ -29,15 +29,15 @@ class UpcomingEventsCell: UICollectionViewCell {
         homeTeamLogo.layer.cornerRadius = homeTeamLogo.frame.height / 2
         awayTeamLogo.layer.cornerRadius = awayTeamLogo.frame.height / 2
 
-        if let imageUrl = URL(string: item.leagueLogo) {
+        if let imageUrl = URL(string: item.leagueLogo ?? "") {
             leagueImage.kf.setImage(with: imageUrl)
         }
         
-        if let imageUrl = URL(string: item.awayTeamLogo) {
+        if let imageUrl = URL(string: item.awayTeamLogo ?? "") {
             awayTeamLogo.kf.setImage(with: imageUrl)
         }
         
-        if let imageUrl = URL(string: item.homeTeamLogo) {
+        if let imageUrl = URL(string: item.homeTeamLogo ?? "") {
             homeTeamLogo.kf.setImage(with: imageUrl)
         }
     }
