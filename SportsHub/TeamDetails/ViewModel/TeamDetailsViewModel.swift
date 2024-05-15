@@ -16,6 +16,8 @@ class TeamDetailsViewModel {
             self.bindTeamDetailsViewModelToController()
         }
     }
+
+    var selectedPlayer: Player?
     
     init(service: APIServiceProtocol) {
         self.service = service

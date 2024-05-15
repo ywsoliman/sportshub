@@ -13,9 +13,9 @@ class LeaguesDetailsVC: UIViewController {
     @IBOutlet weak var favBtnOL: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var isFavorited = false // this flag for change btnFav image
-    var leagueId: String?
-    let leaguesDetailsVM = LeaguesDetailsVM()
+    private var isFavorited = false // this flag for change btnFav image
+    private let leaguesDetailsVM = LeaguesDetailsVM()
+    var leaguesViewModel: LeaguesViewModel!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -24,9 +24,7 @@ class LeaguesDetailsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard leagueId != nil else { return }
-        
+                    
         IndicatorManager.shared.setIndicator(on: self.view)
         
         fetchUpComingEvents()
@@ -141,7 +139,7 @@ class LeaguesDetailsVC: UIViewController {
 
     // MARK: change leagu ID not to be static
     func fetchUpComingEvents(){
-        leaguesDetailsVM.fetchUpComingEvents(leagueId: leagueId!, onSuccess: {
+        leaguesDetailsVM.fetchUpComingEvents(leagueId: leaguesViewModel.selectedLeague, onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
@@ -151,7 +149,7 @@ class LeaguesDetailsVC: UIViewController {
     }
     
     func fetchLatestEvent() {
-        leaguesDetailsVM.fetchLatestEvent(leagueId: leagueId!, onSuccess: {
+        leaguesDetailsVM.fetchLatestEvent(leagueId: leaguesViewModel.selectedLeague, onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
@@ -161,7 +159,7 @@ class LeaguesDetailsVC: UIViewController {
     }
     
     func fetchTeams () {
-        leaguesDetailsVM.fetchTeams(leagueId: leagueId!, onSuccess: {
+        leaguesDetailsVM.fetchTeams(leagueId: leaguesViewModel.selectedLeague, onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
@@ -171,7 +169,7 @@ class LeaguesDetailsVC: UIViewController {
     }
     
     func saveDataIfNotExist() -> Bool{
-        let leagueKey = (Int(leagueId ?? "207") ?? 207).toUUID()
+        let leagueKey = (Int(leaguesViewModel.selectedLeague ?? "207") ?? 207).toUUID()
         let existingLeagues = leaguesDetailsVM.fetchAllLeagues()
         var isSaving = false
         
@@ -209,7 +207,7 @@ class LeaguesDetailsVC: UIViewController {
 
     func isCurrentLeagueSaved() {
         let existingLeagues = leaguesDetailsVM.fetchAllLeagues()
-        let leagueKey = (Int(leagueId ?? "207") ?? 207).toUUID()
+        let leagueKey = (Int(leaguesViewModel.selectedLeague ?? "207") ?? 207).toUUID()
 
         if let existingLeague = existingLeagues.first(where: { $0.leagueKey == leagueKey }) {
             let image = UIImage(systemName: "heart.fill")
@@ -328,7 +326,8 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
         if let cell = sender as? TeamsCell,
            let indexPath = collectionView.indexPath(for: cell) {
             
-            destVC.teamKey = String(leaguesDetailsVM.teams[indexPath.row].teamKey)
+            leaguesDetailsVM.selectedTeamKey = String(leaguesDetailsVM.teams[indexPath.row].teamKey)
+            destVC.leagueDetailsViewModel = leaguesDetailsVM
             
         }
         
