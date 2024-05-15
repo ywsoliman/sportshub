@@ -106,7 +106,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ghd-mh-T2F">
-                                <rect key="frame" x="8" y="110" width="377" height="708"/>
+                                <rect key="frame" x="0.0" y="110" width="393" height="708"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pWS-Aj-PZa">
                                     <size key="itemSize" width="361" height="219"/>
@@ -116,7 +116,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="UpcomingEventsCell" reuseIdentifier="UpcomingEventsCell" id="BUg-f5-ovi" customClass="UpcomingEventsCell" customModule="SportsHub" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="50" width="361" height="219"/>
+                                        <rect key="frame" x="16" y="50" width="361" height="219"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Moc-KG-wHJ">
                                             <rect key="frame" x="0.0" y="0.0" width="361" height="219"/>
@@ -216,7 +216,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LatestResultsCell" id="DPf-jc-Eko" customClass="LatestResultsCell" customModule="SportsHub" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="279" width="361" height="101"/>
+                                        <rect key="frame" x="16" y="279" width="361" height="101"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fUR-S3-aH3">
                                             <rect key="frame" x="0.0" y="0.0" width="361" height="101"/>
@@ -278,7 +278,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TeamsCell" id="21m-pK-LdS" customClass="TeamsCell" customModule="SportsHub" customModuleProvider="target">
-                                        <rect key="frame" x="122" y="390" width="133" height="101"/>
+                                        <rect key="frame" x="130" y="390" width="133" height="101"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="wvR-fv-ThB">
                                             <rect key="frame" x="0.0" y="0.0" width="133" height="101"/>
@@ -315,17 +315,26 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="HeaderView" id="OaM-sE-WIk" customClass="HeaderView" customModule="SportsHub" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="377" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFc-uu-DTG">
-                                            <rect key="frame" x="8" y="8" width="361" height="34"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFc-uu-DTG">
+                                            <rect key="frame" x="24" y="14.666666666666664" width="345" height="21"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" red="0.89491405150000003" green="0.89353200389999998" blue="0.91767293400000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="cFc-uu-DTG" firstAttribute="centerX" secondItem="OaM-sE-WIk" secondAttribute="centerX" id="2fh-oP-7tD"/>
+                                        <constraint firstItem="cFc-uu-DTG" firstAttribute="centerY" secondItem="OaM-sE-WIk" secondAttribute="centerY" id="4BE-j2-Dsr"/>
+                                        <constraint firstItem="cFc-uu-DTG" firstAttribute="leading" secondItem="OaM-sE-WIk" secondAttribute="leadingMargin" constant="16" id="Lxh-oe-rZF"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="cFc-uu-DTG" secondAttribute="trailing" constant="16" id="S0m-DP-x9k"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="headerSection" destination="cFc-uu-DTG" id="SoS-Re-MPF"/>
+                                    </connections>
                                 </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="JHC-l9-yKx" id="kk1-JC-798"/>
@@ -356,13 +365,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="VvZ-ue-wlR" firstAttribute="top" secondItem="Cpb-BQ-PeT" secondAttribute="top" constant="16" id="EvU-QL-xkp"/>
-                            <constraint firstItem="Ghd-mh-T2F" firstAttribute="leading" secondItem="Cpb-BQ-PeT" secondAttribute="leading" constant="8" id="GAx-Mv-uxg"/>
+                            <constraint firstItem="Ghd-mh-T2F" firstAttribute="leading" secondItem="Cpb-BQ-PeT" secondAttribute="leading" id="GAx-Mv-uxg"/>
                             <constraint firstItem="VvZ-ue-wlR" firstAttribute="leading" secondItem="Cpb-BQ-PeT" secondAttribute="leading" id="Qha-wS-poa"/>
                             <constraint firstItem="Ghd-mh-T2F" firstAttribute="top" secondItem="Jqb-GD-13f" secondAttribute="bottom" id="Tvx-Px-LqG"/>
                             <constraint firstItem="Cpb-BQ-PeT" firstAttribute="trailing" secondItem="Jqb-GD-13f" secondAttribute="trailing" constant="16" id="Zrg-Gs-fBT"/>
                             <constraint firstItem="Ghd-mh-T2F" firstAttribute="bottom" secondItem="Cpb-BQ-PeT" secondAttribute="bottom" id="ngV-4B-kWm"/>
                             <constraint firstItem="Jqb-GD-13f" firstAttribute="top" secondItem="Cpb-BQ-PeT" secondAttribute="top" constant="16" id="pXs-7b-xlM"/>
-                            <constraint firstItem="Cpb-BQ-PeT" firstAttribute="trailing" secondItem="Ghd-mh-T2F" secondAttribute="trailing" constant="8" id="w1c-IC-HUi"/>
+                            <constraint firstItem="Cpb-BQ-PeT" firstAttribute="trailing" secondItem="Ghd-mh-T2F" secondAttribute="trailing" id="w1c-IC-HUi"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Details" image="square.and.arrow.up.on.square" catalog="system" id="1zT-rQ-pgK"/>
