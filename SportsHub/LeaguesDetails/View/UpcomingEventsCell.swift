@@ -25,7 +25,8 @@ class UpcomingEventsCell: UICollectionViewCell {
         roundLbl.text = item.leagueRound
         homeTeamName.text = item.eventHomeTeam
         awayTeamName.text = item.eventAwayTeam
-        
+        vsLbl.text = "VS"
+
         homeTeamLogo.layer.cornerRadius = homeTeamLogo.frame.height / 2
         awayTeamLogo.layer.cornerRadius = awayTeamLogo.frame.height / 2
 
