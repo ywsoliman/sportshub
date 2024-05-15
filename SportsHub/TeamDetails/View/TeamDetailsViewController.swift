@@ -10,7 +10,7 @@ import UIKit
 class TeamDetailsViewController: UIViewController {
     
     private var teamDetailsViewModel: TeamDetailsViewModel!
-    
+    var teamKey: String!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var teamImageView: UIImageView!
     @IBOutlet weak var coachLabel: UILabel!
@@ -23,7 +23,7 @@ class TeamDetailsViewController: UIViewController {
         let networkIndicator = NetworkIndicator(view: view)
 
         teamDetailsViewModel = TeamDetailsViewModel(service: APIService.shared)
-        teamDetailsViewModel.fetch(key: "80")
+        teamDetailsViewModel.fetch(key: teamKey)
         networkIndicator.setIndicator()
         
         teamDetailsViewModel.bindTeamDetailsViewModelToController = { [weak self] in
