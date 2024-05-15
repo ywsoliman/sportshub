@@ -11,6 +11,7 @@
 		4CCBA9D62BF1D0B500A9FD9A /* IndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBA9D52BF1D0B500A9FD9A /* IndicatorManager.swift */; };
 		4CCCB5952BF540BC0069B1A6 /* NetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCB5942BF540BC0069B1A6 /* NetworkServiceTest.swift */; };
 		4CCCB5972BF548810069B1A6 /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCB5962BF548810069B1A6 /* NetworkServiceMock.swift */; };
+		4CCCB5992BF576EB0069B1A6 /* GetCurrentDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCB5982BF576EB0069B1A6 /* GetCurrentDate.swift */; };
 		4CD334C42BF1321900058EE2 /* UpComingEventResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334C32BF1321900058EE2 /* UpComingEventResult.swift */; };
 		4CD334C62BF1324900058EE2 /* LatestEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334C52BF1324900058EE2 /* LatestEvents.swift */; };
 		4CD334C82BF1325A00058EE2 /* Teams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334C72BF1325A00058EE2 /* Teams.swift */; };
@@ -84,6 +85,7 @@
 		4CCBA9D52BF1D0B500A9FD9A /* IndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorManager.swift; sourceTree = "<group>"; };
 		4CCCB5942BF540BC0069B1A6 /* NetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTest.swift; sourceTree = "<group>"; };
 		4CCCB5962BF548810069B1A6 /* NetworkServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
+		4CCCB5982BF576EB0069B1A6 /* GetCurrentDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentDate.swift; sourceTree = "<group>"; };
 		4CD334C32BF1321900058EE2 /* UpComingEventResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpComingEventResult.swift; sourceTree = "<group>"; };
 		4CD334C52BF1324900058EE2 /* LatestEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEvents.swift; sourceTree = "<group>"; };
 		4CD334C72BF1325A00058EE2 /* Teams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teams.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 				BEBD01052BEED4C500BF6EC7 /* DarkOverlay.swift */,
 				BEDF0E882BF015D40082CBC3 /* NetworkIndicator.swift */,
 				4CDC41E12BF3DDF00043967E /* CovertIntToUUID.swift */,
+				4CCCB5982BF576EB0069B1A6 /* GetCurrentDate.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CCCB5992BF576EB0069B1A6 /* GetCurrentDate.swift in Sources */,
 				BEBD01062BEED4C500BF6EC7 /* DarkOverlay.swift in Sources */,
 				BEBD01222BEF02D000BF6EC7 /* LeagueTableViewCell.swift in Sources */,
 				4CB02DA92BF3A89600334AB8 /* CoreDataHelper.swift in Sources */,

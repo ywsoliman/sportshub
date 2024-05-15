@@ -17,13 +17,13 @@ class LeaguesDetailsVM {
     private let coreDataHelper = CoreDataHelper.shared
     
     var selectedTeamKey: String!
-
+    
     // MARK: first work for get API for Up coming events
     func fetchUpComingEvents(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
         let parameters: [String: Any] = [
             "leagueid": leagueId,
-            "from": "2024-05-18", // MARK: cahange date not static
-            "to": "2024-05-25"
+            "from": currentDate,
+            "to": afterCurrentDate
         ]
         networkService.fetch(dataType: UpComingEventResult.self, league: SelectedSport.sport!, met: "Fixtures", parameters: parameters, onCompletion: { upComingEventResponse in
             let upComingEvent = upComingEventResponse.result
@@ -38,8 +38,8 @@ class LeaguesDetailsVM {
     func fetchLatestEvent(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
         let parameters: [String: Any] = [
             "leagueId": leagueId,
-            "from": "2024-05-1", // MARK: change it not to
-            "to": "2024-05-12"
+            "from": beforeCurrentDate,
+            "to": currentDate
         ]
         networkService.fetch(dataType: LatestEventResponse.self, league: SelectedSport.sport!, met: "Fixtures", parameters: parameters, onCompletion: { latestEventResponse in
             let latestEvent = latestEventResponse.result
@@ -74,4 +74,5 @@ class LeaguesDetailsVM {
     func fetchAllLeagues() -> [LeagueEntitie] {
         return coreDataHelper.fetchAllLeagues()
     }
+        
 }
