@@ -104,6 +104,18 @@ class CoreDataHelper {
         }
     }
     
+    func doesTeamExist(withKey: Int) -> Bool {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "TeamTable")
+        fetchRequest.predicate = NSPredicate(format: "key == %ld", withKey)
+        do {
+            let teams = try context.fetch(fetchRequest)
+            return teams.count > 0
+        } catch {
+            print("Error deleting league: \(error.localizedDescription)")
+        }
+        return false
+    }
+    
     func saveLeague(leagueKey: UUID, leagueLogo: Data?, leagueName: String) {
         let newLeague = LeagueEntitie(context: context)
         newLeague.leagueKey = leagueKey

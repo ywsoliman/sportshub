@@ -16,7 +16,7 @@ class LeaguesDetailsVM {
     private let networkService = NetworkService.shared
     private let coreDataHelper = CoreDataHelper.shared
     
-    var selectedTeamKey: String!
+    var selectedTeamKey: Int!
 
     // MARK: first work for get API for Up coming events
     func fetchUpComingEvents(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {

@@ -9,9 +9,12 @@ import UIKit
 
 class TeamDetailsViewController: UIViewController {
     
+    private var networkIndicator: NetworkIndicator!
     private var teamDetailsViewModel: TeamDetailsViewModel!
-    var leagueDetailsViewModel: LeaguesDetailsVM!
+    var leagueDetailsViewModel: LeaguesDetailsVM?
+    var favoriteViewModel: FavoritesViewModel?
     
+    @IBOutlet weak var favBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var teamImageView: UIImageView!
     @IBOutlet weak var coachLabel: UILabel!
@@ -20,17 +23,38 @@ class TeamDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         setupTableView()
+        updateSaveButton()
         
-        let networkIndicator = NetworkIndicator(view: view)
-        
+        networkIndicator = NetworkIndicator(view: view)
         teamDetailsViewModel = TeamDetailsViewModel(service: APIService.shared)
-        teamDetailsViewModel.fetch(key: leagueDetailsViewModel.selectedTeamKey)
         networkIndicator.setIndicator()
         
         teamDetailsViewModel.bindTeamDetailsViewModelToController = { [weak self] in
-            networkIndicator.stopIndicator()
+            self?.networkIndicator.stopIndicator()
             self?.updateTeamUI()
             self?.tableView.reloadData()
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let leagueModel = leagueDetailsViewModel {
+            favBtn.isHidden = false
+            teamDetailsViewModel.fetch(key: String(leagueModel.selectedTeamKey))
+        } else if let favoriteModel = favoriteViewModel {
+            favBtn.isHidden = true
+            networkIndicator.stopIndicator()
+            teamDetailsViewModel.team = favoriteModel.selectedTeam
+            updateTeamUI()
+        }
+    }
+    
+    func updateSaveButton() {
+        if let leagueModel = leagueDetailsViewModel {
+            let key = leagueModel.selectedTeamKey
+            if CoreDataHelper.shared.doesTeamExist(withKey: key ?? 0) {
+                favBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            }
         }
         
     }
@@ -65,6 +89,7 @@ class TeamDetailsViewController: UIViewController {
             }
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         } else {
+            CoreDataHelper.shared.deleteTeam(withKey: teamDetailsViewModel.team!.teamKey)
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
         }
         

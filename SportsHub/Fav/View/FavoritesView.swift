@@ -21,12 +21,14 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         super.viewWillAppear(animated)
         leagues = favoritesViewModel.fetchAllLeagues()
         tableView.reloadData()
+        print("View will appear")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(LeagueTableViewCell.nib(), forCellReuseIdentifier: LeagueTableViewCell.identifier)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -38,41 +40,31 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         case 0:
             return leagues.count
         default:
-            return favoritesViewModel.fetchTeams().count
+            return favoritesViewModel.favoriteTeams.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: LeagueTableViewCell.identifier, for: indexPath) as! LeagueTableViewCell
         
-        
-        let team = favoritesViewModel.fetchTeams()[indexPath.row]
-        
-        cell.leagueName.text = team.teamName
-        if let logo = team.teamLogo {
-            cell.leagueImage.kf.setImage(with: URL(string: logo))
+        if indexPath.section == 0 {
+            let league = leagues[indexPath.row]
+            cell.name.text = league.leagueName
+            if let leagueImage = league.leagueLogo {
+                cell.leagueImage.image = UIImage(data: leagueImage)
+            } else {
+                cell.leagueImage.image = UIImage(named: "SportsLogo")
+            }
         } else {
-            cell.leagueImage.image = UIImage(named: "no-image-placeholder")
+            let team = favoritesViewModel.favoriteTeams[indexPath.row]
+            cell.name.text = team.teamName
+            if let logo = team.teamLogo {
+                cell.leagueImage.kf.setImage(with: URL(string: logo))
+            } else {
+                cell.leagueImage.image = UIImage(named: "no-image-placeholder")
+            }
         }
-        
-//        let league = leagues[indexPath.row]
-//        cell.leagueName.text = league.leagueName
-//        // Set league image if available
-//        if let leagueImage = league.leagueLogo {
-//            cell.leagueImage.image = UIImage(data: leagueImage)
-//        } else {
-//            cell.leagueImage.image = UIImage(named: "SportsLogo")
-//        }
-        
-        cell.layer.cornerRadius = 10
-        cell.layer.masksToBounds = true
-        cell.layer.borderWidth = 1.0
-        cell.layer.borderColor = UIColor.black.cgColor
-        
-        cell.layer.shadowOpacity = 1
-        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
-        cell.layer.shadowColor = UIColor.black.cgColor
         
         return cell
     }
@@ -86,10 +78,26 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == 1 {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destVC = storyboard.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
+            
+            let selectedTeam = favoritesViewModel.favoriteTeams[indexPath.row]
+            favoritesViewModel.selectedTeam = selectedTeam
+            destVC.favoriteViewModel = favoritesViewModel
+            present(destVC, animated: true)
+            
+        }
+        
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let alert = UIAlertController(title: "Delete League", message: "Are you sure you want to delete this league?", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Delete Confirmation", message: "Are you sure you want to delete this?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             
@@ -111,11 +119,6 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
             present(alert, animated: true, completion: nil)
         }
     }
-}
-
-class CustomTableViewCell: UITableViewCell {
-    @IBOutlet weak var leagueName: UILabel!
-    @IBOutlet weak var leagueImage: UIImageView!
 }
 
 

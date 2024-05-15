@@ -11,7 +11,7 @@ class TeamDetailsViewModel {
     
     var service: APIServiceProtocol!
     var bindTeamDetailsViewModelToController: (() -> ()) = {}
-    private(set) var team: Team? {
+    var team: Team? {
         didSet {
             self.bindTeamDetailsViewModelToController()
         }

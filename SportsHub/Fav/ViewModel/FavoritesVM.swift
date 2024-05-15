@@ -11,7 +11,13 @@ import CoreData
 class FavoritesViewModel {
     
     private let coreDataHelper = CoreDataHelper.shared
-
+    
+    var selectedTeam: Team!
+    
+    var favoriteTeams: [Team] {
+        coreDataHelper.fetchTeams()
+    }
+    
     func fetchTeams() -> [Team] {
         return coreDataHelper.fetchTeams()
     }
