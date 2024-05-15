@@ -41,4 +41,21 @@ class UpcomingEventsCell: UICollectionViewCell {
             homeTeamLogo.kf.setImage(with: imageUrl)
         }
     }
+    
+    func setUpMocData() {
+        leagueName.text = "Sorry cant find it for now"
+        dateLbl.text = ""
+        roundLbl.text = ""
+        homeTeamName.text = ""
+        awayTeamName.text = ""
+        vsLbl.text = ""
+        let leagueLogoImage = UIImage(named: "SportsLogo")
+        leagueImage.image = leagueLogoImage
+
+        let awayTeamLogoImage = UIImage(named: "")
+        awayTeamLogo.image = awayTeamLogoImage
+
+        let homeTeamLogoImage = UIImage(named: "")
+        homeTeamLogo.image = homeTeamLogoImage
+    }
 }

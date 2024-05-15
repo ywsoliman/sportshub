@@ -271,7 +271,7 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
             case 0:
-            return leaguesDetailsVM.upComingEvent.count
+            return max(leaguesDetailsVM.upComingEvent.count, 1)
             case 1:
                 return leaguesDetailsVM.latestEvent.count
             default:
@@ -297,11 +297,17 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
-        
-        if let upComingEventsCell = cell as? UpcomingEventsCell {
-            let upComingEventRes = leaguesDetailsVM.upComingEvent[indexPath.item]
-            upComingEventsCell.setUp(upComingEventRes)
+        if leaguesDetailsVM.upComingEvent.count > 0 {
+            if let upComingEventsCell = cell as? UpcomingEventsCell {
+                let upComingEventRes = leaguesDetailsVM.upComingEvent[indexPath.item]
+                upComingEventsCell.setUp(upComingEventRes)
+            }
+        } else {
+            if let upComingEventsCell = cell as? UpcomingEventsCell {
+                upComingEventsCell.setUpMocData()
+            }
         }
+
         
         if let latestResCell = cell as? LatestResultsCell {
             let latestRes = leaguesDetailsVM.latestEvent[indexPath.item]
@@ -400,52 +406,3 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     // Pass the selected object to the new view controller.
 }
 */
-
-
-/*
- func drawUpComingEvents() -> NSCollectionLayoutSection{
-     
-     let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-     let item = NSCollectionLayoutItem(layoutSize: itemSize)
-     
-     let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(219))
-     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-     group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16)
-     
-     let section = NSCollectionLayoutSection(group: group)
-     section.orthogonalScrollingBehavior = .continuous
-     section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 0)
-
-     section.visibleItemsInvalidationHandler = { (items, offset, environment) in
-         items.forEach { item in
-             let distanceFromCenter = abs((item.frame.midX - offset.x) - environment.container.contentSize.width / 2.0)
-             let minScale: CGFloat = 0.8
-             let maxScale: CGFloat = 1.0
-             let scale = max(maxScale - (distanceFromCenter / environment.container.contentSize.width), minScale)
-             item.transform = CGAffineTransform(scaleX: scale, y: scale)
-         }
-     }
-     
-     return section
- }
- 
- */
-
-
-
-
-
-
-/*
- 
- Hello, my name is Anas. I recently completed a 9-month program in Mobile Applications Development at
-
-  -  ITI. My journey into programming began with CS50, an introduction to computer science, and
- 
-  -  progressed to the Meta iOS track. Now, I'm eager to start my career as a junior iOS Developer
-    
-  -  and contribute to innovative projects in the field. I'm passionate about creating good user
- 
-  -  experiences and leveraging the latest technologies to build peutyfull applications.
- 
- */
