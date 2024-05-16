@@ -15,7 +15,6 @@ class LeaguesDetailsVC: UIViewController {
     
     private var isFavorited = false // this flag for change btnFav image
     private var isComingFromFavorite: Bool!
-    let dispatchGroup = DispatchGroup()
     private let leaguesDetailsVM = LeaguesDetailsVM()
     var leaguesViewModel: LeaguesViewModel!
     var favoriteViewModel: FavoritesViewModel!
@@ -43,22 +42,12 @@ class LeaguesDetailsVC: UIViewController {
             favBtnOL.isHidden = false
         }
         
-        dispatchGroup.enter()
         fetchUpComingEvents()
-        
-        dispatchGroup.enter()
         fetchLatestEvent()
-        
-        dispatchGroup.enter()
         fetchTeams()
         
         let layOut = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             return self.layoutForSection(at: sectionIndex)
-        }
-        
-        dispatchGroup.notify(queue: .main) {
-            self.collectionView.reloadData()
-            IndicatorManager.shared.stopIndicator()
         }
         
         collectionView.collectionViewLayout = layOut
@@ -203,28 +192,34 @@ class LeaguesDetailsVC: UIViewController {
     func fetchUpComingEvents(){
         
         leaguesDetailsVM.fetchUpComingEvents(leagueId: leagueId, sport: sport, onSuccess: {
-            self.dispatchGroup.leave()
+            self.collectionView.reloadData()
+            IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
             print("Error fetching upcoming events:", error)
+            IndicatorManager.shared.stopIndicator()
         })
     }
     
     func fetchLatestEvent() {
         
         leaguesDetailsVM.fetchLatestEvent(leagueId: leagueId, sport: sport, onSuccess: {
-            self.dispatchGroup.leave()
+            self.collectionView.reloadData()
+            IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
             print("Error fetching latest event:", error)
+            IndicatorManager.shared.stopIndicator()
         })
     }
     
     func fetchTeams () {
         
         leaguesDetailsVM.fetchTeams(leagueId: leagueId, sport: sport, onSuccess: {
-            self.dispatchGroup.leave()
+            self.collectionView.reloadData()
+            IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
             print("Error fetching teams:", error)
-        })
+            IndicatorManager.shared.stopIndicator()
+        }) // MARK: this id i will get from fav or leagues
     }
     
     func saveDataIfNotExist() -> Bool{
