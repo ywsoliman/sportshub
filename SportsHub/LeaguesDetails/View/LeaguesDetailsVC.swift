@@ -175,7 +175,7 @@ class LeaguesDetailsVC: UIViewController {
 
     // MARK: change leagu ID not to be static
     func fetchUpComingEvents(){
-        leaguesDetailsVM.fetchUpComingEvents(leagueId: leaguesViewModel.selectedLeague, onSuccess: {
+        leaguesDetailsVM.fetchUpComingEvents(leagueId: leaguesViewModel.selectedLeague, sport: leaguesViewModel.selectedSport, onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
@@ -192,7 +192,7 @@ class LeaguesDetailsVC: UIViewController {
     }
     
     func fetchLatestEvent() {
-        leaguesDetailsVM.fetchLatestEvent(leagueId: leaguesViewModel.selectedLeague, onSuccess: {
+        leaguesDetailsVM.fetchLatestEvent(leagueId: leaguesViewModel.selectedLeague, sport: leaguesViewModel.selectedSport, onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
@@ -202,7 +202,7 @@ class LeaguesDetailsVC: UIViewController {
     }
     
     func fetchTeams () {
-        leaguesDetailsVM.fetchTeams(leagueId: leaguesViewModel.selectedLeague, onSuccess: {
+        leaguesDetailsVM.fetchTeams(leagueId: leaguesViewModel.selectedLeague, sport: leaguesViewModel.selectedSport, onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
@@ -233,7 +233,7 @@ class LeaguesDetailsVC: UIViewController {
                     switch result {
                     case .success(let imageResult):
                         if let imageData = imageResult.image.kf.pngRepresentation() {
-                            self.leaguesDetailsVM.saveLeague(leagueKey: leagueKey, leagueLogo: imageData, leagueName: leagueName ?? "Anas")
+                            self.leaguesDetailsVM.saveLeague(leagueKey: leagueKey, leagueLogo: imageData, leagueName: leagueName ?? "Anas", sport: self.leaguesViewModel.selectedSport)
                         } else {
                             print("Failed to convert image to data")
                         }
@@ -392,6 +392,7 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
            let indexPath = collectionView.indexPath(for: cell) {
             
             leaguesDetailsVM.selectedTeamKey = leaguesDetailsVM.teams[indexPath.row].teamKey
+            leaguesDetailsVM.selectedSport = leaguesViewModel.selectedSport
             destVC.leagueDetailsViewModel = leaguesDetailsVM
             
         }

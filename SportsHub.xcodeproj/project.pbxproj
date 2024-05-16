@@ -40,6 +40,7 @@
 		BE371A3C2BEE8B4200ACAA6C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE371A3B2BEE8B4200ACAA6C /* Constants.swift */; };
 		BE66F5652BF15C7E000EE117 /* PlayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE66F5642BF15C7E000EE117 /* PlayerDetailsViewController.swift */; };
 		BE66F5672BF15CB0000EE117 /* PlayerHeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE66F5662BF15CB0000EE117 /* PlayerHeaderUIView.swift */; };
+		BE91E76A2BF5F06300AC3F16 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = BE91E7692BF5F06300AC3F16 /* Reachability */; };
 		BE9324022BF3274C003023B8 /* SelectedSport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9324012BF3274C003023B8 /* SelectedSport.swift */; };
 		BEA83D9B2BF40ADD0039BD59 /* APIServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA83D9A2BF40ADD0039BD59 /* APIServiceMock.swift */; };
 		BEA83D9D2BF40AEC0039BD59 /* APIServiceMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA83D9C2BF40AEC0039BD59 /* APIServiceMockTests.swift */; };
@@ -147,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEBD01242BEF039000BF6EC7 /* Kingfisher in Frameworks */,
+				BE91E76A2BF5F06300AC3F16 /* Reachability in Frameworks */,
 				BEBD01122BEEF3A100BF6EC7 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,6 +500,7 @@
 			packageProductDependencies = (
 				BEBD01112BEEF3A100BF6EC7 /* Alamofire */,
 				BEBD01232BEF039000BF6EC7 /* Kingfisher */,
+				BE91E7692BF5F06300AC3F16 /* Reachability */,
 			);
 			productName = SportsHub;
 			productReference = BE3719EF2BEE7CE800ACAA6C /* SportsHub.app */;
@@ -1036,6 +1039,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BE91E7692BF5F06300AC3F16 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE371A382BEE7EA300ACAA6C /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
 		BEBD01112BEEF3A100BF6EC7 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BE371A3A2BEE7FAA00ACAA6C /* XCRemoteSwiftPackageReference "Alamofire" */;

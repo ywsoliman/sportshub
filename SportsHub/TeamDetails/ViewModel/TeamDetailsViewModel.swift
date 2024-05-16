@@ -23,9 +23,9 @@ class TeamDetailsViewModel {
         self.service = service
     }
     
-    func fetch(key: Int) {
+    func fetch(key: Int, sport: String) {
         
-        service.fetchTeam(sport: SelectedSport.sport!, team: key) { team in
+        service.fetchTeam(sport: sport, team: key) { team in
             self.team = team
         } onFailure: { error in
             print("Error in fetching teams: \(error)")

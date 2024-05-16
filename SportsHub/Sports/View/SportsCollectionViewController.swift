@@ -62,13 +62,12 @@ class SportsCollectionViewController: UICollectionViewController, UICollectionVi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        guard segue.destination is LeaguesTableViewController else { return }
-        
-        if let cell = sender as? SportCollectionViewCell, let indexPath = collectionView.indexPath(for: cell) {
-            
-            let sport = sportsViewModel.sports[indexPath.row].name.lowercased()
-            SelectedSport.sport = sport
-            
+        if let leaguesVC = segue.destination as? LeaguesTableViewController {
+            if let cell = sender as? SportCollectionViewCell, let indexPath = collectionView.indexPath(for: cell) {
+                let sport = sportsViewModel.sports[indexPath.row].name.lowercased()
+                sportsViewModel.selectedSport = sport
+                leaguesVC.sportsViewModel = sportsViewModel
+            }
         }
         
     }

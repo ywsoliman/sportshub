@@ -17,13 +17,14 @@ class LeaguesViewModel {
     }
     var bindLeaguesViewModelToController: (() -> ()) = {}
     var selectedLeague: String!
+    var selectedSport: String!
     
     init(service: APIServiceProtocol) {
         self.service = service
     }
     
-    func fetchLeagues(league: String) {
-        service.fetchLeagues(sport: SelectedSport.sport!) { leagues in
+    func fetchLeagues(ofSport: String) {
+        service.fetchLeagues(sport: ofSport) { leagues in
             self.leagues = leagues
         } onFailure: { error in
             print(error)

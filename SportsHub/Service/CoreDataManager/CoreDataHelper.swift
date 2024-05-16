@@ -45,7 +45,8 @@ class CoreDataHelper {
         newTeam.setValuesForKeys([
             TeamAttributes.teamKey: team.teamKey,
             TeamAttributes.teamName: team.teamName,
-            TeamAttributes.teamLogo: team.teamLogo ?? ""
+            TeamAttributes.teamLogo: team.teamLogo ?? "",
+            TeamAttributes.sport: team.sport!
         ])
         
         saveContext()
@@ -78,11 +79,12 @@ class CoreDataHelper {
         return false
     }
 
-    func saveLeague(leagueKey: UUID, leagueLogo: Data?, leagueName: String) {
+    func saveLeague(leagueKey: UUID, leagueLogo: Data?, leagueName: String, sport: String) {
         let newLeague = LeagueEntitie(context: context)
         newLeague.leagueKey = leagueKey
         newLeague.leagueLogo = leagueLogo
         newLeague.leagueName = leagueName
+        newLeague.sport = sport
         saveContext()
     }
     
@@ -98,8 +100,8 @@ class CoreDataHelper {
                 let teamKey = managedTeam.value(forKey: TeamAttributes.teamKey) as! Int
                 let teamName = managedTeam.value(forKey: TeamAttributes.teamName) as! String
                 let teamLogo = managedTeam.value(forKey: TeamAttributes.teamLogo) as? String
-                
-                let team = Team(teamKey: teamKey, teamName: teamName, teamLogo: teamLogo, players: [], coaches: [])
+                let sport = managedTeam.value(forKey: TeamAttributes.sport) as? String
+                let team = Team(teamKey: teamKey, teamName: teamName, teamLogo: teamLogo, players: [], coaches: [], sport: sport)
                 
                 teams.append(team)
             }

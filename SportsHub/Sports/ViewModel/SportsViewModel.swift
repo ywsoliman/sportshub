@@ -14,6 +14,7 @@ struct SportsViewModel {
             self.bindSportsViewModelToController()
         }
     }
+    var selectedSport: String!
     var bindSportsViewModelToController: (() -> ()) = {}
     
     init() {
