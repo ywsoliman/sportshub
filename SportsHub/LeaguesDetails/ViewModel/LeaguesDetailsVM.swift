@@ -17,15 +17,16 @@ class LeaguesDetailsVM {
     private let coreDataHelper = CoreDataHelper.shared
     
     var selectedTeamKey: Int!
+    var selectedSport: String!
   
     // MARK: first work for get API for Up coming events
-    func fetchUpComingEvents(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
+    func fetchUpComingEvents(leagueId: String, sport: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
         let parameters: [String: Any] = [
             "leagueId": leagueId,
             "from": currentDate,
             "to": afterCurrentDate
         ]
-        networkService.fetch(dataType: UpComingEventResult.self, league: SelectedSport.sport!, met: "Fixtures", parameters: parameters, onCompletion: { upComingEventResponse in
+        networkService.fetch(dataType: UpComingEventResult.self, sport: sport, met: "Fixtures", parameters: parameters, onCompletion: { upComingEventResponse in
             let upComingEvent = upComingEventResponse.result
             self.upComingEvent = upComingEvent
             onSuccess()
@@ -35,13 +36,13 @@ class LeaguesDetailsVM {
     }
 
     // MARK: second work for get API for Latest results
-    func fetchLatestEvent(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
+    func fetchLatestEvent(leagueId: String, sport: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
         let parameters: [String: Any] = [
             "leagueId": leagueId,
             "from": beforeCurrentDate,
             "to": currentDate
         ]
-        networkService.fetch(dataType: LatestEventResponse.self, league: SelectedSport.sport!, met: "Fixtures", parameters: parameters, onCompletion: { latestEventResponse in
+        networkService.fetch(dataType: LatestEventResponse.self, sport: sport, met: "Fixtures", parameters: parameters, onCompletion: { latestEventResponse in
             let latestEvent = latestEventResponse.result
             self.latestEvent = latestEvent
             onSuccess()
@@ -51,9 +52,9 @@ class LeaguesDetailsVM {
     }
 
     // MARK: third work for get API for Teams
-    func fetchTeams(leagueId: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
+    func fetchTeams(leagueId: String, sport: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
         let parameters: [String: Any] = ["leagueId": leagueId]
-        networkService.fetch(dataType: TeamsResponse.self, league: SelectedSport.sport!, met: "Teams", parameters: parameters, onCompletion: { teamsResponse in
+        networkService.fetch(dataType: TeamsResponse.self, sport: sport, met: "Teams", parameters: parameters, onCompletion: { teamsResponse in
             let teams = teamsResponse.result
             self.teams = teams
             onSuccess()
@@ -63,8 +64,8 @@ class LeaguesDetailsVM {
     }
     
     // MARK: CoreData ..
-    func saveLeague(leagueKey: UUID, leagueLogo: Data?, leagueName: String) {
-        coreDataHelper.saveLeague(leagueKey: leagueKey, leagueLogo: leagueLogo, leagueName: leagueName)
+    func saveLeague(leagueKey: UUID, leagueLogo: Data?, leagueName: String, sport: String) {
+        coreDataHelper.saveLeague(leagueKey: leagueKey, leagueLogo: leagueLogo, leagueName: leagueName, sport: sport)
     }
     
     func deleteLeague(leagueKey: UUID) {

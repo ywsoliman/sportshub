@@ -62,7 +62,7 @@ final class NetworkServiceTest: XCTestCase {
             "leagueId": "207",
         ]
         
-        NetworkService.shared.fetch(dataType: TeamsResponse.self, league: "football", met: "Teams", parameters: parameters) { data in
+        NetworkService.shared.fetch(dataType: TeamsResponse.self, sport: "football", met: "Teams", parameters: parameters) { data in
             
             if data.result.isEmpty {
                 XCTFail()

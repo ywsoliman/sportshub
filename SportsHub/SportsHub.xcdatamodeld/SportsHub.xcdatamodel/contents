@@ -4,10 +4,12 @@
         <attribute name="leagueKey" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="leagueLogo" optional="YES" attributeType="Binary"/>
         <attribute name="leagueName" optional="YES" attributeType="String"/>
+        <attribute name="sport" optional="YES" attributeType="String"/>
     </entity>
     <entity name="TeamTable" representedClassName="TeamTable" syncable="YES" codeGenerationType="class">
         <attribute name="key" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="logo" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
+        <attribute name="sport" optional="YES" attributeType="String"/>
     </entity>
 </model>

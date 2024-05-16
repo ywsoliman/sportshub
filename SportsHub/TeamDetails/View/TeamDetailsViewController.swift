@@ -26,7 +26,7 @@ class TeamDetailsViewController: UIViewController {
         updateSaveButton()
         
         networkIndicator = NetworkIndicator(view: view)
-        teamDetailsViewModel = TeamDetailsViewModel(service: APIService.shared)
+        teamDetailsViewModel = TeamDetailsViewModel(service: NetworkService.shared)
         networkIndicator.setIndicator()
         
         teamDetailsViewModel.bindTeamDetailsViewModelToController = { [weak self] in
@@ -40,10 +40,10 @@ class TeamDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if let leagueModel = leagueDetailsViewModel {
             favBtn.isHidden = false
-            teamDetailsViewModel.fetch(key: leagueModel.selectedTeamKey)
+            teamDetailsViewModel.fetch(key: leagueModel.selectedTeamKey, sport: leagueModel.selectedSport)
         } else if let favoriteModel = favoriteViewModel {
             favBtn.isHidden = true
-            teamDetailsViewModel.fetch(key: favoriteModel.selectedTeam.teamKey)
+            teamDetailsViewModel.fetch(key: favoriteModel.selectedTeam.teamKey, sport: favoriteModel.selectedTeam.sport!)
         }
     }
     
@@ -87,8 +87,12 @@ class TeamDetailsViewController: UIViewController {
     }
     
     func insertTeamToFavorites(_ sender: UIButton) {
-        DispatchQueue.global().async {
-            CoreDataHelper.shared.insert(team: self.teamDetailsViewModel.team!)
+        DispatchQueue.global().async { [self] in
+            var team = teamDetailsViewModel.team!
+            if let leagueModel = leagueDetailsViewModel {
+                team.sport = leagueModel.selectedSport
+            }
+            CoreDataHelper.shared.insert(team: team)
             DispatchQueue.main.async {
                 sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             }

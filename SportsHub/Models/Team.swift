@@ -19,13 +19,13 @@ struct Team: Codable {
     let teamLogo: String?
     let players: [Player]?
     let coaches: [Coach]?
+    var sport: String?
     
     enum CodingKeys: String, CodingKey {
         case teamKey = "team_key"
         case teamName = "team_name"
         case teamLogo = "team_logo"
-        case players
-        case coaches
+        case players, coaches, sport
     }
     
 }
