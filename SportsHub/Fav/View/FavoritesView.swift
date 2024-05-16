@@ -7,28 +7,59 @@
 
 import UIKit
 import CoreData
-
+import Reachability
 
 class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     @IBOutlet weak var tableView: UITableView!
-
+    
     let favoritesViewModel = FavoritesViewModel()
     var leagues: [LeagueEntitie] = []
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        leagues = favoritesViewModel.fetchAllLeagues()
-        tableView.reloadData()
-        print("View will appear")
-    }
+    var reachability: Reachability!
+    var isConnectedToInternet: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LeagueTableViewCell.nib(), forCellReuseIdentifier: LeagueTableViewCell.identifier)
+        
+        reachability = try? Reachability()
+        
+        if reachability.connection != .unavailable {
+            isConnectedToInternet = true
+        } else {
+            isConnectedToInternet = false
+            noInternetAlert()
+        }
+        
+        reachability.whenReachable = { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.isConnectedToInternet = true
+            }
+        }
+        
+        reachability.whenUnreachable = { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.isConnectedToInternet = false
+                self?.noInternetAlert()
+            }
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        leagues = favoritesViewModel.fetchAllLeagues()
+        tableView.reloadData()
+        print("View will appear")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -88,18 +119,31 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.section == 1 {
+        if isConnectedToInternet {
             
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destVC = storyboard.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
+            if indexPath.section == 1 {
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let destVC = storyboard.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
+                
+                let selectedTeam = favoritesViewModel.favoriteTeams[indexPath.row]
+                favoritesViewModel.selectedTeam = selectedTeam
+                destVC.favoriteViewModel = favoritesViewModel
+                present(destVC, animated: true)
+                
+            }
             
-            let selectedTeam = favoritesViewModel.favoriteTeams[indexPath.row]
-            favoritesViewModel.selectedTeam = selectedTeam
-            destVC.favoriteViewModel = favoritesViewModel
-            present(destVC, animated: true)
-            
+        } else {
+            noInternetAlert()
         }
         
+    }
+    
+    func noInternetAlert() {
+        let alert = UIAlertController(title: "No Internet Connection", message: "Please connect to the internet to view details", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -146,11 +190,11 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
 
 /*
-// MARK: - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    // Get the new view controller using segue.destination.
-    // Pass the selected object to the new view controller.
-}
-*/
+ // MARK: - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ // Get the new view controller using segue.destination.
+ // Pass the selected object to the new view controller.
+ }
+ */
