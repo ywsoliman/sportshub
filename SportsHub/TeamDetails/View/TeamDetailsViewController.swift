@@ -40,12 +40,10 @@ class TeamDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if let leagueModel = leagueDetailsViewModel {
             favBtn.isHidden = false
-            teamDetailsViewModel.fetch(key: String(leagueModel.selectedTeamKey))
+            teamDetailsViewModel.fetch(key: leagueModel.selectedTeamKey)
         } else if let favoriteModel = favoriteViewModel {
             favBtn.isHidden = true
-            networkIndicator.stopIndicator()
-            teamDetailsViewModel.team = favoriteModel.selectedTeam
-            updateTeamUI()
+            teamDetailsViewModel.fetch(key: favoriteModel.selectedTeam.teamKey)
         }
     }
     
@@ -56,7 +54,6 @@ class TeamDetailsViewController: UIViewController {
                 favBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             }
         }
-        
     }
     
     func updateTeamUI() {
@@ -82,17 +79,29 @@ class TeamDetailsViewController: UIViewController {
     
     
     @IBAction func favBtn(_ sender: UIButton) {
-        
         if sender.imageView?.image == UIImage(systemName: "heart") {
-            DispatchQueue.global().async {
-                CoreDataHelper.shared.insert(team: self.teamDetailsViewModel.team!)
-            }
-            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            insertTeamToFavorites(sender)
         } else {
-            CoreDataHelper.shared.deleteTeam(withKey: teamDetailsViewModel.team!.teamKey)
-            sender.setImage(UIImage(systemName: "heart"), for: .normal)
+            deleteTeamFromFavorites(sender)
         }
-        
+    }
+    
+    func insertTeamToFavorites(_ sender: UIButton) {
+        DispatchQueue.global().async {
+            CoreDataHelper.shared.insert(team: self.teamDetailsViewModel.team!)
+            DispatchQueue.main.async {
+                sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            }
+        }
+    }
+    
+    func deleteTeamFromFavorites(_ sender: UIButton) {
+        DispatchQueue.global().async {
+            CoreDataHelper.shared.deleteTeam(withKey: self.teamDetailsViewModel.team!.teamKey)
+            DispatchQueue.main.async {
+                sender.setImage(UIImage(systemName: "heart"), for: .normal)
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -107,7 +116,6 @@ class TeamDetailsViewController: UIViewController {
         
         if let cell = sender as? PlayerTableViewCell,
            let indexPath = tableView.indexPath(for: cell) {
-            
             
             teamDetailsViewModel.selectedPlayer = teamDetailsViewModel.team?.players?[indexPath.section]
             destVC.teamDetailsViewModel = teamDetailsViewModel

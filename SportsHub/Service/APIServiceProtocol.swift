@@ -9,5 +9,5 @@ import Foundation
 
 protocol APIServiceProtocol {
     func fetchLeagues(sport: String, onCompletion: @escaping ([League]) -> Void, onFailure: @escaping (String) -> Void)
-    func fetchTeam(sport: String, team: String, onCompletion: @escaping (Team) -> Void, onFailure: @escaping (String) -> Void)
+    func fetchTeam(sport: String, team: Int, onCompletion: @escaping (Team) -> Void, onFailure: @escaping (String) -> Void)
 }

@@ -97,27 +97,33 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let alert = UIAlertController(title: "Delete Confirmation", message: "Are you sure you want to delete this?", preferredStyle: .alert)
+            dellCellAlert(indexPath, tableView)
+        }
+    }
+    
+    func dellCellAlert(_ indexPath: IndexPath, _ tableView: UITableView) {
+        let alert = UIAlertController(title: "Delete Confirmation", message: "Are you sure you want to delete this?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
             
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            
-            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
-                
+            DispatchQueue.global().async {
                 if indexPath.section == 0 {
-                    self.favoritesViewModel.deleteLeague(leagueKey: self.leagues[indexPath.row].leagueKey!)
+                    let leagueKey = self.leagues[indexPath.row].leagueKey!
+                    self.favoritesViewModel.deleteLeague(leagueKey: leagueKey)
                     self.leagues.remove(at: indexPath.row)
                 } else {
-                    self.favoritesViewModel.deleteTeam(withKey: self.favoritesViewModel.fetchTeams()[indexPath.row].teamKey)
-                    print(self.favoritesViewModel.fetchTeams())
+                    let teamKey = self.favoritesViewModel.favoriteTeams[indexPath.row].teamKey
+                    self.favoritesViewModel.deleteTeam(withKey: teamKey)
                 }
-                
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                
-                
-            }))
-            
-            present(alert, animated: true, completion: nil)
-        }
+                DispatchQueue.main.async {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 
