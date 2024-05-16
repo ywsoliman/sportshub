@@ -49,32 +49,40 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         let cell = tableView.dequeueReusableCell(withIdentifier: LeagueTableViewCell.identifier, for: indexPath) as! LeagueTableViewCell
         
         if indexPath.section == 0 {
-            let league = leagues[indexPath.row]
-            cell.name.text = league.leagueName
-            if let leagueImage = league.leagueLogo {
-                cell.leagueImage.image = UIImage(data: leagueImage)
-            } else {
-                cell.leagueImage.image = UIImage(named: "SportsLogo")
-            }
+            setLeagueCell(indexPath, cell)
         } else {
-            let team = favoritesViewModel.favoriteTeams[indexPath.row]
-            cell.name.text = team.teamName
-            if let logo = team.teamLogo {
-                cell.leagueImage.kf.setImage(with: URL(string: logo))
-            } else {
-                cell.leagueImage.image = UIImage(named: "no-image-placeholder")
-            }
+            setTeamCell(indexPath, cell)
         }
         
         return cell
     }
     
+    func setLeagueCell(_ indexPath: IndexPath, _ cell: LeagueTableViewCell) {
+        let league = leagues[indexPath.row]
+        cell.name.text = league.leagueName
+        if let leagueImage = league.leagueLogo {
+            cell.leagueImage.image = UIImage(data: leagueImage)
+        } else {
+            cell.leagueImage.image = UIImage(named: "SportsLogo")
+        }
+    }
+    
+    func setTeamCell(_ indexPath: IndexPath, _ cell: LeagueTableViewCell) {
+        let team = favoritesViewModel.favoriteTeams[indexPath.row]
+        cell.name.text = team.teamName
+        if let logo = team.teamLogo {
+            cell.leagueImage.kf.setImage(with: URL(string: logo))
+        } else {
+            cell.leagueImage.image = UIImage(named: "no-image-placeholder")
+        }
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Favorite Leagues"
+            return leagues.count > 0 ? "Favorite Leagues" : nil
         default:
-            return "Favorite Teams"
+            return favoritesViewModel.favoriteTeams.count > 0 ? "Favorite Teams" : nil
         }
     }
     
@@ -110,12 +118,9 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
             
             DispatchQueue.global().async {
                 if indexPath.section == 0 {
-                    let leagueKey = self.leagues[indexPath.row].leagueKey!
-                    self.favoritesViewModel.deleteLeague(leagueKey: leagueKey)
-                    self.leagues.remove(at: indexPath.row)
+                    self.deleteSelectedLeague(index: indexPath.row)
                 } else {
-                    let teamKey = self.favoritesViewModel.favoriteTeams[indexPath.row].teamKey
-                    self.favoritesViewModel.deleteTeam(withKey: teamKey)
+                    self.deleteSelectedTeam(index: indexPath.row)
                 }
                 DispatchQueue.main.async {
                     tableView.deleteRows(at: [indexPath], with: .fade)
@@ -125,6 +130,18 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         present(alert, animated: true, completion: nil)
     }
+    
+    func deleteSelectedLeague(index: Int) {
+        let leagueKey = leagues[index].leagueKey!
+        self.favoritesViewModel.deleteLeague(leagueKey: leagueKey)
+        self.leagues.remove(at: index)
+    }
+    
+    func deleteSelectedTeam(index: Int) {
+        let teamKey = self.favoritesViewModel.favoriteTeams[index].teamKey
+        self.favoritesViewModel.deleteTeam(withKey: teamKey)
+    }
+    
 }
 
 
