@@ -15,7 +15,7 @@ class LeaguesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        leaguesViewModel = LeaguesViewModel(service: APIService.shared)
+        leaguesViewModel = LeaguesViewModel(service: NetworkService.shared)
         
         let networkIndicator = NetworkIndicator(view: view)
         networkIndicator.setIndicator()

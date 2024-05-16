@@ -26,7 +26,7 @@ class TeamDetailsViewController: UIViewController {
         updateSaveButton()
         
         networkIndicator = NetworkIndicator(view: view)
-        teamDetailsViewModel = TeamDetailsViewModel(service: APIService.shared)
+        teamDetailsViewModel = TeamDetailsViewModel(service: NetworkService.shared)
         networkIndicator.setIndicator()
         
         teamDetailsViewModel.bindTeamDetailsViewModelToController = { [weak self] in

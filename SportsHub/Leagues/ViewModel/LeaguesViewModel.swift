@@ -9,7 +9,7 @@ import Foundation
 
 class LeaguesViewModel {
     
-    private var service: APIServiceProtocol!
+    private var service: NetworkService!
     private(set) var leagues: [League] = [] {
         didSet {
             self.bindLeaguesViewModelToController()
@@ -19,16 +19,18 @@ class LeaguesViewModel {
     var selectedLeague: String!
     var selectedSport: String!
     
-    init(service: APIServiceProtocol) {
+    init(service: NetworkService) {
         self.service = service
     }
     
     func fetchLeagues(ofSport: String) {
-        service.fetchLeagues(sport: ofSport) { leagues in
-            self.leagues = leagues
+                
+        service.fetch(dataType: LeagueResponse.self, sport: ofSport, met: "Leagues") { response in
+            self.leagues = response.result
         } onFailure: { error in
             print(error)
         }
+
     }
     
 }
