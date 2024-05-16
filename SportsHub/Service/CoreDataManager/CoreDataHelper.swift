@@ -12,9 +12,7 @@ class CoreDataHelper {
     static let shared = CoreDataHelper()
 
     private init() {}
-    
-    // MARK: - Core Data stack
-    
+        
     lazy var context: NSManagedObjectContext = {
         let container = NSPersistentContainer(name: "SportsHub")
         container.loadPersistentStores(completionHandler: { (_, error) in
@@ -24,9 +22,7 @@ class CoreDataHelper {
         })
         return container.viewContext
     }()
-    
-    // MARK: - Core Data Saving support
-    
+        
     func saveContext() {
         if context.hasChanges {
             do {
@@ -37,9 +33,7 @@ class CoreDataHelper {
             }
         }
     }
-    
-    // MARK: - CRUD operations
-    
+        
     func saveLeague(leagueKey: UUID, leagueLogo: Data?, leagueName: String) {
         let newLeague = LeagueEntitie(context: context)
         newLeague.leagueKey = leagueKey
