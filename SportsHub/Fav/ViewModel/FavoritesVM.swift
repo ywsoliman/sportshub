@@ -9,10 +9,25 @@ import Foundation
 import CoreData
 
 class FavoritesViewModel {
+    
     private let coreDataHelper = CoreDataHelper.shared
-
+    
+    var selectedTeam: Team!
+    
+    var favoriteTeams: [Team] {
+        coreDataHelper.fetchTeams()
+    }
+    
+    func fetchTeams() -> [Team] {
+        return coreDataHelper.fetchTeams()
+    }
+    
     func fetchAllLeagues() -> [LeagueEntitie] {
         return coreDataHelper.fetchAllLeagues()
+    }
+    
+    func deleteTeam(withKey: Int) {
+        coreDataHelper.deleteTeam(withKey: withKey)
     }
 
     func deleteLeague(leagueKey: UUID) {

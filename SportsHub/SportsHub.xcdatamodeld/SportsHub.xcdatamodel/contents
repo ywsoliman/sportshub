@@ -1,31 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="CoachTable" representedClassName="CoachTable" syncable="YES" codeGenerationType="class">
-        <attribute name="age" optional="YES" attributeType="String"/>
-        <attribute name="country" optional="YES" attributeType="String"/>
-        <attribute name="name" attributeType="String"/>
-    </entity>
     <entity name="LeagueEntitie" representedClassName="LeagueEntitie" syncable="YES" codeGenerationType="class">
         <attribute name="leagueKey" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="leagueLogo" optional="YES" attributeType="Binary"/>
         <attribute name="leagueName" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="PlayerTable" representedClassName="PlayerTable" syncable="YES" codeGenerationType="class">
-        <attribute name="age" attributeType="String"/>
-        <attribute name="goals" attributeType="String"/>
-        <attribute name="image" attributeType="String"/>
-        <attribute name="injured" attributeType="String"/>
-        <attribute name="key" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="matchesPlayed" attributeType="String"/>
-        <attribute name="name" attributeType="String"/>
-        <attribute name="number" attributeType="String"/>
-        <attribute name="type" attributeType="String"/>
-    </entity>
     <entity name="TeamTable" representedClassName="TeamTable" syncable="YES" codeGenerationType="class">
         <attribute name="key" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="logo" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
-        <relationship name="coaches" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoachTable"/>
-        <relationship name="players" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlayerTable"/>
     </entity>
 </model>

@@ -36,9 +36,9 @@ struct APIService: APIServiceProtocol {
         
     }
     // https://apiv2.allsportsapi.com/cricket/?&met=Teams&teamId=138&APIkey=!_your_account_APIkey_!
-    func fetchTeam(sport: String, team: String, onCompletion: @escaping (Team) -> Void, onFailure: @escaping (String) -> Void) {
+    func fetchTeam(sport: String, team: Int, onCompletion: @escaping (Team) -> Void, onFailure: @escaping (String) -> Void) {
         
-        let parameters = ["met": "Teams", "teamId": team, "APIkey": Constants.API_KEY]
+        let parameters: [String: Any] = ["met": "Teams", "teamId": team, "APIkey": Constants.API_KEY]
         let urlWithEndpoint = Constants.BASE_URL + sport + "/"
         
         AF.request(urlWithEndpoint, parameters: parameters).responseDecodable(of: TeamResponse.self) { response in

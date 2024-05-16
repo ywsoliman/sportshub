@@ -9,9 +9,12 @@ import UIKit
 
 class TeamDetailsViewController: UIViewController {
     
+    private var networkIndicator: NetworkIndicator!
     private var teamDetailsViewModel: TeamDetailsViewModel!
-    var leagueDetailsViewModel: LeaguesDetailsVM!
+    var leagueDetailsViewModel: LeaguesDetailsVM?
+    var favoriteViewModel: FavoritesViewModel?
     
+    @IBOutlet weak var favBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var teamImageView: UIImageView!
     @IBOutlet weak var coachLabel: UILabel!
@@ -20,19 +23,37 @@ class TeamDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         setupTableView()
+        updateSaveButton()
         
-        let networkIndicator = NetworkIndicator(view: view)
-
+        networkIndicator = NetworkIndicator(view: view)
         teamDetailsViewModel = TeamDetailsViewModel(service: APIService.shared)
-        teamDetailsViewModel.fetch(key: leagueDetailsViewModel.selectedTeamKey)
         networkIndicator.setIndicator()
         
         teamDetailsViewModel.bindTeamDetailsViewModelToController = { [weak self] in
-            networkIndicator.stopIndicator()
+            self?.networkIndicator.stopIndicator()
             self?.updateTeamUI()
             self?.tableView.reloadData()
         }
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let leagueModel = leagueDetailsViewModel {
+            favBtn.isHidden = false
+            teamDetailsViewModel.fetch(key: leagueModel.selectedTeamKey)
+        } else if let favoriteModel = favoriteViewModel {
+            favBtn.isHidden = true
+            teamDetailsViewModel.fetch(key: favoriteModel.selectedTeam.teamKey)
+        }
+    }
+    
+    func updateSaveButton() {
+        if let leagueModel = leagueDetailsViewModel {
+            let key = leagueModel.selectedTeamKey
+            if CoreDataHelper.shared.doesTeamExist(withKey: key ?? 0) {
+                favBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            }
+        }
     }
     
     func updateTeamUI() {
@@ -56,11 +77,30 @@ class TeamDetailsViewController: UIViewController {
         tableView.register(PlayerTableViewCell.nib(), forCellReuseIdentifier: PlayerTableViewCell.identifier)
     }
     
-    @IBAction func favBarBtn(_ sender: UIBarButtonItem) {
-        if sender.image == UIImage(systemName: "star") {
-            sender.image = UIImage(systemName: "star.fill")
+    
+    @IBAction func favBtn(_ sender: UIButton) {
+        if sender.imageView?.image == UIImage(systemName: "heart") {
+            insertTeamToFavorites(sender)
         } else {
-            sender.image = UIImage(systemName: "star")
+            deleteTeamFromFavorites(sender)
+        }
+    }
+    
+    func insertTeamToFavorites(_ sender: UIButton) {
+        DispatchQueue.global().async {
+            CoreDataHelper.shared.insert(team: self.teamDetailsViewModel.team!)
+            DispatchQueue.main.async {
+                sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            }
+        }
+    }
+    
+    func deleteTeamFromFavorites(_ sender: UIButton) {
+        DispatchQueue.global().async {
+            CoreDataHelper.shared.deleteTeam(withKey: self.teamDetailsViewModel.team!.teamKey)
+            DispatchQueue.main.async {
+                sender.setImage(UIImage(systemName: "heart"), for: .normal)
+            }
         }
     }
     
@@ -76,7 +116,6 @@ class TeamDetailsViewController: UIViewController {
         
         if let cell = sender as? PlayerTableViewCell,
            let indexPath = tableView.indexPath(for: cell) {
-            
             
             teamDetailsViewModel.selectedPlayer = teamDetailsViewModel.team?.players?[indexPath.section]
             destVC.teamDetailsViewModel = teamDetailsViewModel

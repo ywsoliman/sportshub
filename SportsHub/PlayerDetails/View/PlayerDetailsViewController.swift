@@ -28,7 +28,7 @@ class PlayerDetailsViewController: UIViewController {
         headerView = PlayerHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 200))
         tableView.tableHeaderView = headerView
 
-        properities = [player.playerNumber, player.playerName, player.playerAge, player.playerType, player.playerMatchPlayed, player.playerGoals]}
+        properities = [player.playerNumber ?? "N/A", player.playerName, player.playerAge ?? "N/A", player.playerType ?? "N/A", player.playerMatchPlayed ?? "N/A", player.playerGoals ?? "N/A"]}
 
 }
 
@@ -58,7 +58,7 @@ extension PlayerDetailsViewController: UITableViewDelegate, UITableViewDataSourc
                 
         cell.textLabel?.text = properities[indexPath.section]
         headerView.playerImage.kf.setImage(
-            with: URL(string: player.playerImage),
+            with: URL(string: player.playerImage ?? ""),
             placeholder: UIImage(named: "no-player-placeholder")
         )
         

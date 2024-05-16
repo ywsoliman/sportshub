@@ -11,7 +11,7 @@ class TeamDetailsViewModel {
     
     var service: APIServiceProtocol!
     var bindTeamDetailsViewModelToController: (() -> ()) = {}
-    private(set) var team: Team? {
+    var team: Team? {
         didSet {
             self.bindTeamDetailsViewModelToController()
         }
@@ -23,7 +23,7 @@ class TeamDetailsViewModel {
         self.service = service
     }
     
-    func fetch(key: String) {
+    func fetch(key: Int) {
         
         service.fetchTeam(sport: SelectedSport.sport!, team: key) { team in
             self.team = team

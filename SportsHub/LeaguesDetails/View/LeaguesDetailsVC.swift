@@ -391,7 +391,7 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
         if let cell = sender as? TeamsCell,
            let indexPath = collectionView.indexPath(for: cell) {
             
-            leaguesDetailsVM.selectedTeamKey = String(leaguesDetailsVM.teams[indexPath.row].teamKey)
+            leaguesDetailsVM.selectedTeamKey = leaguesDetailsVM.teams[indexPath.row].teamKey
             destVC.leagueDetailsViewModel = leaguesDetailsVM
             
         }

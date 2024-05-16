@@ -35,7 +35,7 @@ class PlayerTableViewCell: UITableViewCell {
         numberLabel.text = player.playerNumber
         nameLabel.text = player.playerName
         playerImageView.kf.setImage(
-            with: URL(string: player.playerImage),
+            with: URL(string: player.playerImage ?? ""),
             placeholder: UIImage(named: "no-player-placeholder")
         )
         playerImageView.layer.cornerRadius = playerImageView.frame.size.width / 2
