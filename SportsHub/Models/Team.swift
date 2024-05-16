@@ -33,13 +33,13 @@ struct Team: Codable {
 struct Player: Codable {
     let playerKey: Int
     let playerName: String
-    let playerImage: String
-    let playerAge: String
-    let playerGoals: String
-    let playerMatchPlayed: String
-    let playerNumber: String
-    let playerInjured: String
-    let playerType: String
+    let playerImage: String?
+    let playerAge: String?
+    let playerGoals: String?
+    let playerMatchPlayed: String?
+    let playerNumber: String?
+    let playerInjured: String?
+    let playerType: String?
     
     enum CodingKeys: String, CodingKey {
         case playerKey = "player_key"
