@@ -21,24 +21,54 @@ struct NetworkServiceMock {
     let fakeLatestEventResponseJSON: [String: Any] = [
         "success": 1,
         "result": [
-            "homeTeamLogo": "TestLogo1",
-            "awayTeamLogo": "TestLogo2",
-            "awayTeamName": "TestName",
-            "finalResultLbl": "TestRes",
-            "homeTeamName": "TestTeamName"
+          [
+            "home_team_logo": "http://example.com/home_logo_1.png",
+            "away_team_logo": "http://example.com/away_logo_1.png",
+            "event_away_team": "Away Team 1",
+            "event_final_result": "3 - 2",
+            "event_home_team": "Home Team 1"
+          ],
+          [          "home_team_logo": "http://example.com/home_logo_2.png",
+            "away_team_logo": "http://example.com/away_logo_2.png",
+            "event_away_team": "Away Team 2",
+            "event_final_result": "1 - 1",
+            "event_home_team": "Home Team 2"
+          ]
         ]
-    ]
+      ]
 
-    
     let fakeTeamsResponseJSON: [String: Any] =
     [
-        "success": 1,
-        "result": [
-            "teamKey": 207,
-            "teamName": "String teamName",
-            "teamLogo": "String teamLogo"
+      "success": 1,
+      "result": [
+        [
+          "team_key": 1,
+          "team_name": "Team A",
+          "team_logo": "http://example.com/team_a_logo.png",
+          "players": [
+            [
+              "player_name": "Player 1",
+              "position": "Forward"
+            ],
+            [
+              "player_name": "Player 2",
+              "position": "Midfielder"
+            ]
+          ],
+          "coaches": [
+            [
+              "coach_name": "Coach 1",
+              "role": "Head Coach"
+            ],
+            [
+              "coach_name": "Coach 2",
+              "role": "Assistant Coach"
+            ]
+          ]
         ]
+      ]
     ]
+
     
     let fakeUpComingEventResultJSON: [String: Any] = [
         "success": 1,
@@ -97,7 +127,9 @@ extension NetworkServiceMock {
         
         do {
             let data = try JSONSerialization.data(withJSONObject: fakeLatestEventResponseJSON)
+            print("JSON Data:", String(data: data, encoding: .utf8) ?? "Invalid JSON data")
             result = try JSONDecoder().decode(LatestEventResponse.self, from: data)
+         
         } catch {
             print(error)
         }
@@ -106,15 +138,17 @@ extension NetworkServiceMock {
             case responseError
         }
         
-        if shouldReturnError {
-            onFailure(ErrorType.responseError.rawValue)
-        } else {
-            if let result = result {
-                onCompletion(result.result)
-            } else {
-                onFailure("Error: Result is nil")
-            }
+        
+        if let result = result?.result{
+            print("Returning result.")
+            onCompletion(result)
+        }else {
+            print()
+            print("====not ================= =====Returning result.")
         }
+        
+       
+        
     }
     
     func fetchTeam(sport: String, onCompletion: @escaping ([Team]) -> Void, onFailure: @escaping (String) -> Void) {
@@ -131,16 +165,17 @@ extension NetworkServiceMock {
             case responseError
         }
         
-        if shouldReturnError {
-            onFailure(ErrorType.responseError.rawValue)
-        } else {
-            if let result = result {
-                onCompletion(result.result)
-            } else {
-                onFailure("Error: Result is nil")
-            }
+      
+        if let result = result?.result{
+            print("Returning result.")
+            onCompletion(result)
+        }else {
+            print()
+            print("====not ================= =====Returning result.")
+        }
+        
         }
     }
 
 
-}
+

@@ -19,7 +19,7 @@ final class NetworkServiceTest: XCTestCase {
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        networkObj = nil
+        //networkObj = nil
         
     }
     
@@ -75,6 +75,25 @@ final class NetworkServiceTest: XCTestCase {
             print("Error: \(error)")
             XCTFail()
             myExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 30)
+    }
+    
+    func testFetchDataFromAPIOnFail() {
+        let myExpectation = expectation(description: "w8 For Res from API ....")
+        
+        let parameters: [String: Any] = [
+            "leagueId": "154815AASDDF544515",
+        ]
+        
+        NetworkService.shared.fetch(dataType: TeamsResponse.self, league: "football", met: "Teams", parameters: parameters) { data in
+            
+
+            
+        } onFailure: { error in
+            print("Error: \(error)")
+            myExpectation.fulfill()
+            // HERE TESET IT WILL FAIL 
         }
         waitForExpectations(timeout: 30)
     }
