@@ -13,13 +13,10 @@ class FavoritesViewModel {
     private let coreDataHelper = CoreDataHelper.shared
     
     var selectedTeam: Team!
+    var selectedLeague: LeagueEntitie!
     
     var favoriteTeams: [Team] {
         coreDataHelper.fetchTeams()
-    }
-    
-    func fetchTeams() -> [Team] {
-        return coreDataHelper.fetchTeams()
     }
     
     func fetchAllLeagues() -> [LeagueEntitie] {

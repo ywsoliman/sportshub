@@ -21,11 +21,18 @@ struct NetworkService {
 
         let urlWithEndpoint = Constants.BASE_URL + sport + "/"
         
+        var myString = urlWithEndpoint + "?"
+        for (key, value) in allParameters {
+            myString += "\(key)=\(value)&"
+        }
+        print(myString)
+        
         AF.request(urlWithEndpoint, parameters: allParameters).responseDecodable(of: T.self) { response in
             switch response.result {
             case .success(let data):
                 onCompletion(data)
             case .failure(let error):
+                print(error)
                 onFailure("Fetching error: \(error.errorDescription ?? "N/A")")
             }
         }

@@ -9,35 +9,50 @@ import UIKit
 import Kingfisher
 
 class LeaguesDetailsVC: UIViewController {
-
+    
     @IBOutlet weak var favBtnOL: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
     private var isFavorited = false // this flag for change btnFav image
+    private var isComingFromFavorite: Bool!
     private let leaguesDetailsVM = LeaguesDetailsVM()
     var leaguesViewModel: LeaguesViewModel!
+    var favoriteViewModel: FavoritesViewModel!
+    
+    var leagueId: String!
+    var sport: String!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        isCurrentLeagueSaved() // see favBtn img will be heart.fill or not
+        isCurrentLeagueSaved()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                    
+        
         IndicatorManager.shared.setIndicator(on: self.view)
+        
+        if favoriteViewModel != nil {
+            leagueId = String(favoriteViewModel.selectedLeague.leagueKey?.toInt() ?? 0)
+            sport = favoriteViewModel.selectedLeague.sport ?? "football"
+            favBtnOL.isHidden = true
+        } else if leaguesViewModel != nil {
+            leagueId = leaguesViewModel.selectedLeague
+            sport = leaguesViewModel.selectedSport
+            favBtnOL.isHidden = false
+        }
         
         fetchUpComingEvents()
         fetchLatestEvent()
         fetchTeams()
-                
+        
         let layOut = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             return self.layoutForSection(at: sectionIndex)
         }
-
+        
         collectionView.collectionViewLayout = layOut
     }
-
+    
     func drawUpComingEvents() -> NSCollectionLayoutSection{
         
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
@@ -46,7 +61,7 @@ class LeaguesDetailsVC: UIViewController {
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(219))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
-                
+        
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
         section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
@@ -111,7 +126,7 @@ class LeaguesDetailsVC: UIViewController {
         
         section.boundarySupplementaryItems = [headerSupplemntrry]
         
-
+        
         
         return section
     }
@@ -160,7 +175,7 @@ class LeaguesDetailsVC: UIViewController {
             return drawTeams()
         }
     }
-
+    
     // MARK: Helper methods :-
     func updateButtonImage(_ flag: Bool) {
         var imageName = "heart"
@@ -172,27 +187,22 @@ class LeaguesDetailsVC: UIViewController {
         let image = UIImage(systemName: imageName)
         favBtnOL.setImage(image, for: .normal)
     }
-
+    
     // MARK: change leagu ID not to be static
     func fetchUpComingEvents(){
-        leaguesDetailsVM.fetchUpComingEvents(leagueId: leaguesViewModel.selectedLeague, sport: leaguesViewModel.selectedSport, onSuccess: {
+        
+        leaguesDetailsVM.fetchUpComingEvents(leagueId: leagueId, sport: sport, onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
-            print("==========================================")
-            print("==========================================")
-            print("==========================================")
             print("Error fetching upcoming events:", error)
-            print("==========================================")
-            print("==========================================")
-            print("==========================================")
-
             IndicatorManager.shared.stopIndicator()
         })
     }
     
     func fetchLatestEvent() {
-        leaguesDetailsVM.fetchLatestEvent(leagueId: leaguesViewModel.selectedLeague, sport: leaguesViewModel.selectedSport, onSuccess: {
+        
+        leaguesDetailsVM.fetchLatestEvent(leagueId: leagueId, sport: sport, onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
@@ -202,7 +212,8 @@ class LeaguesDetailsVC: UIViewController {
     }
     
     func fetchTeams () {
-        leaguesDetailsVM.fetchTeams(leagueId: leaguesViewModel.selectedLeague, sport: leaguesViewModel.selectedSport, onSuccess: {
+        
+        leaguesDetailsVM.fetchTeams(leagueId: leagueId, sport: sport, onSuccess: {
             self.collectionView.reloadData()
             IndicatorManager.shared.stopIndicator()
         }, onFailure: { error in
@@ -227,8 +238,8 @@ class LeaguesDetailsVC: UIViewController {
             isSaving = true
             if let logoURLString = leaguesDetailsVM.upComingEvent.first?.leagueLogo,
                let logoURL = URL(string: logoURLString) {
-               let leagueName = leaguesDetailsVM.upComingEvent.first?.leagueName
-
+                let leagueName = leaguesDetailsVM.upComingEvent.first?.leagueName
+                
                 KingfisherManager.shared.retrieveImage(with: logoURL) { result in
                     switch result {
                     case .success(let imageResult):
@@ -247,12 +258,12 @@ class LeaguesDetailsVC: UIViewController {
         }
         return isSaving
     }
-
+    
     func isCurrentLeagueSaved() {
         let existingLeagues = leaguesDetailsVM.fetchAllLeagues()
-        let leagueKey = (Int(leaguesViewModel.selectedLeague ?? "207") ?? 207).toUUID()
-
-        if let existingLeague = existingLeagues.first(where: { $0.leagueKey == leagueKey }) {
+        let leagueKey = (Int(leagueId ?? "207") ?? 207).toUUID()
+        
+        if existingLeagues.first(where: { $0.leagueKey == leagueKey }) != nil {
             let image = UIImage(systemName: "heart.fill")
             favBtnOL.setImage(image, for: .normal)
         } else {
@@ -263,7 +274,7 @@ class LeaguesDetailsVC: UIViewController {
     
     @IBAction func addFavBtn(_ sender: Any) { // if it alleady in will delete it
         isFavorited.toggle()
-
+        
         let isSaving = saveDataIfNotExist() // else delete
         
         updateButtonImage(isSaving)
@@ -277,12 +288,12 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-            case 0:
+        case 0:
             return leaguesDetailsVM.upComingEvent.count > 0 ? leaguesDetailsVM.upComingEvent.count : 1
-            case 1:
-                return leaguesDetailsVM.latestEvent.count
-            default:
-                return leaguesDetailsVM.teams.count
+        case 1:
+            return leaguesDetailsVM.latestEvent.count
+        default:
+            return leaguesDetailsVM.teams.count
         }
     }
     
@@ -294,13 +305,12 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
         let cellID: String
         
         switch indexPath.section {
-            case 0:
-                cellID = "UpcomingEventsCell"
-            
-            case 1:
-                cellID = "LatestResultsCell"
-            default:
-                cellID = "TeamsCell"
+        case 0:
+            cellID = "UpcomingEventsCell"
+        case 1:
+            cellID = "LatestResultsCell"
+        default:
+            cellID = "TeamsCell"
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
@@ -315,8 +325,6 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
                 upComingEventsCell.setUpMocData()
             }
         }
-
-
         
         if let latestResCell = cell as? LatestResultsCell {
             let latestRes = leaguesDetailsVM.latestEvent[indexPath.item]
@@ -327,7 +335,7 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
             let team = leaguesDetailsVM.teams[indexPath.item]
             teamsCell.setUp(team)
         }
-
+        
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
         cell.layer.borderWidth = 1.0
@@ -338,38 +346,10 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
         cell.layer.shadowColor = UIColor.black.cgColor
         
         //cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
-
+        
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        var teamID: String?
 
-        switch indexPath.section {
-        case 0:
-            //let upComingEventRes = leaguesDetailsVM.upComingEvent[indexPath.item]
-            print("Tapped Upcoming Event: ")
-        case 1:
-            let latestRes = leaguesDetailsVM.latestEvent[indexPath.item]
-            print("Tapped Latest Result: \(latestRes)")
-        default:
-            // Handle Team
-            let team = leaguesDetailsVM.teams[indexPath.item]
-            teamID = String(team.teamKey)
-        }
-        
-//        if let teamID = teamID {
-//            // Navigate to another screen
-//            let storyboard = UIStoryboard(name: "Storyboard", bundle: nil)
-//            let destinationVC = storyboard.instantiateViewController(withIdentifier: "Destenation") as! Destenation
-//            
-//            destinationVC.teamID = teamID
-//
-//            navigationController?.pushViewController(destinationVC, animated: true)
-//        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderView", for: indexPath) as! HeaderView
         switch(indexPath.section) {
@@ -379,7 +359,7 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
             header.headerSection.text = "Latest Result"
         default:
             header.headerSection.text = "Teams"
-
+            
         }
         return header
     }
@@ -404,15 +384,3 @@ extension LeaguesDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate
 class HeaderView: UICollectionReusableView {
     @IBOutlet weak var headerSection: UILabel!
 }
-
-
-
-/*
-// MARK: - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    // Get the new view controller using segue.destination.
-    // Pass the selected object to the new view controller.
-}
-*/
