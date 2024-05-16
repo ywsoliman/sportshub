@@ -9,49 +9,49 @@ import XCTest
 @testable import SportsHub
 
 final class NetworkServiceTest: XCTestCase {
-
-    var networkObj: NetworkServiceMock!
+    
     
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        networkObj = NetworkServiceMock(shouldReturnError: false)
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        //networkObj = nil
         
     }
     
-    // MARK: ... testing the NetwrokService Using MockDAta
-
-    func testfetchUpComingRes() {
-        networkObj.fetchUpComingRes(sport: "football") { events in
-            XCTAssertTrue(events.count > 0)
-        } onFailure: { error in
-            print(error)
-            XCTFail()
-        }
+    override func tearDownWithError() throws {
+        
+        
     }
     
-    func testLatestEventResponse() {
-        networkObj.fetchLatestEventResponse(sport: "football", onCompletion: { data in
-            XCTAssertTrue(data.count > 0)
-        }, onFailure: { error in
-            print(error)
+    func testFetchingLeagues() {
+        
+        let expectation = expectation(description: "Waiting for leagues API..")
+        
+        NetworkService.shared.fetch(dataType: LeagueResponse.self, sport: "football", met: "Leagues") { response in
+            XCTAssertTrue(response.result.count > 0)
+            expectation.fulfill()
+        } onFailure: { error in
             XCTFail()
-        })
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 30)
+        
     }
     
-    func testTeamsResponse() {
-        networkObj.fetchTeam(sport: "football") { events in
-            XCTAssertTrue(events.count > 0)
+    func testFetchingTeams() {
+        
+        let expectation = expectation(description: "Waiting for leagues API..")
+        
+        NetworkService.shared.fetch(dataType: TeamResponse.self, sport: "football", met: "Teams", parameters: ["teamId" : 80]) { response in
+            XCTAssertEqual(response.result[0].teamKey, 80)
+            expectation.fulfill()
         } onFailure: { error in
-            print(error)
             XCTFail()
+            expectation.fulfill()
         }
+        
+        waitForExpectations(timeout: 30)
+        
     }
- 
+    
     
     // MARK: ... testing the NetwrokService
     
@@ -86,14 +86,12 @@ final class NetworkServiceTest: XCTestCase {
             "leagueId": "154815AASDDF544515",
         ]
         
-        NetworkService.shared.fetch(dataType: TeamsResponse.self, league: "football", met: "Teams", parameters: parameters) { data in
-            
-
+        NetworkService.shared.fetch(dataType: TeamsResponse.self, sport: "football", met: "Teams", parameters: parameters) { data in
             
         } onFailure: { error in
             print("Error: \(error)")
             myExpectation.fulfill()
-            // HERE TESET IT WILL FAIL 
+            // HERE TESET IT WILL FAIL
         }
         waitForExpectations(timeout: 30)
     }

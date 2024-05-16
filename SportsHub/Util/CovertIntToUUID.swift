@@ -24,3 +24,17 @@ extension Int {
         return UUID(uuid: uuidBytes)
     }
 }
+
+extension UUID {
+    func toInt() -> Int? {
+        let uuidBytes = withUnsafeBytes(of: self.uuid) { Data($0) }
+        guard uuidBytes.count >= MemoryLayout<Int>.size else { return nil }
+        
+        var value: Int = 0
+        for byte in uuidBytes.prefix(MemoryLayout<Int>.size).reversed() {
+            value <<= 8
+            value |= Int(byte)
+        }
+        return value
+    }
+}

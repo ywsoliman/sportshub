@@ -23,9 +23,10 @@ class LeaguesDetailsVM {
     func fetchUpComingEvents(leagueId: String, sport: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
         let parameters: [String: Any] = [
             "leagueId": leagueId,
-            "from": currentDate,
-            "to": afterCurrentDate
+            "from": DateUtil.getCurrentDateString(),
+            "to": DateUtil.getDateOneWeekAfter()
         ]
+        
         networkService.fetch(dataType: UpComingEventResult.self, sport: sport, met: "Fixtures", parameters: parameters, onCompletion: { upComingEventResponse in
             let upComingEvent = upComingEventResponse.result
             self.upComingEvent = upComingEvent
@@ -39,8 +40,8 @@ class LeaguesDetailsVM {
     func fetchLatestEvent(leagueId: String, sport: String, onSuccess: @escaping () -> Void, onFailure: @escaping (String) -> Void) {
         let parameters: [String: Any] = [
             "leagueId": leagueId,
-            "from": beforeCurrentDate,
-            "to": currentDate
+            "from": DateUtil.getDateOneWeekBefore(),
+            "to": DateUtil.getCurrentDateString()
         ]
         networkService.fetch(dataType: LatestEventResponse.self, sport: sport, met: "Fixtures", parameters: parameters, onCompletion: { latestEventResponse in
             let latestEvent = latestEventResponse.result

@@ -12,7 +12,7 @@
 		4CCBA9D62BF1D0B500A9FD9A /* IndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBA9D52BF1D0B500A9FD9A /* IndicatorManager.swift */; };
 		4CCCB5952BF540BC0069B1A6 /* NetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCB5942BF540BC0069B1A6 /* NetworkServiceTest.swift */; };
 		4CCCB5972BF548810069B1A6 /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCB5962BF548810069B1A6 /* NetworkServiceMock.swift */; };
-		4CCCB5992BF576EB0069B1A6 /* GetCurrentDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCB5982BF576EB0069B1A6 /* GetCurrentDate.swift */; };
+		4CCCB5992BF576EB0069B1A6 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCB5982BF576EB0069B1A6 /* DateUtil.swift */; };
 		4CD334C42BF1321900058EE2 /* UpComingEventResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334C32BF1321900058EE2 /* UpComingEventResult.swift */; };
 		4CD334C62BF1324900058EE2 /* LatestEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334C52BF1324900058EE2 /* LatestEvents.swift */; };
 		4CD334C82BF1325A00058EE2 /* Teams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD334C72BF1325A00058EE2 /* Teams.swift */; };
@@ -28,6 +28,7 @@
 		4CDC9F672BF070A600682CB5 /* FavoritesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDC9F662BF070A600682CB5 /* FavoritesVM.swift */; };
 		BE2A088D2BF1701D00524177 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2A088B2BF1701D00524177 /* PlayerTableViewCell.swift */; };
 		BE2A088E2BF1701D00524177 /* PlayerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2A088C2BF1701D00524177 /* PlayerTableViewCell.xib */; };
+		BE36C8AE2BF64482001698DD /* NetworkServiceMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE36C8AD2BF64482001698DD /* NetworkServiceMockTests.swift */; };
 		BE3719F32BEE7CE800ACAA6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3719F22BEE7CE800ACAA6C /* AppDelegate.swift */; };
 		BE3719F52BEE7CE800ACAA6C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3719F42BEE7CE800ACAA6C /* SceneDelegate.swift */; };
 		BE3719FA2BEE7CE800ACAA6C /* Base in Resources */ = {isa = PBXBuildFile; fileRef = BE3719F92BEE7CE800ACAA6C /* Base */; };
@@ -42,10 +43,6 @@
 		BE66F5672BF15CB0000EE117 /* PlayerHeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE66F5662BF15CB0000EE117 /* PlayerHeaderUIView.swift */; };
 		BE91E76A2BF5F06300AC3F16 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = BE91E7692BF5F06300AC3F16 /* Reachability */; };
 		BE9324022BF3274C003023B8 /* SelectedSport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9324012BF3274C003023B8 /* SelectedSport.swift */; };
-		BEA83D9B2BF40ADD0039BD59 /* APIServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA83D9A2BF40ADD0039BD59 /* APIServiceMock.swift */; };
-		BEA83D9D2BF40AEC0039BD59 /* NetworkServiceMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA83D9C2BF40AEC0039BD59 /* NetworkServiceMockTests.swift */; };
-		BEB7B6592BF4F695002A24EB /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7B6582BF4F695002A24EB /* Attributes.swift */; };
-		BEA83D9D2BF40AEC0039BD59 /* APIServiceMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA83D9C2BF40AEC0039BD59 /* APIServiceMockTests.swift */; };
 		BEBD00FF2BEEC3D600BF6EC7 /* SportCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBD00FE2BEEC3D600BF6EC7 /* SportCollectionViewCell.swift */; };
 		BEBD01012BEEC3F000BF6EC7 /* SportsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBD01002BEEC3F000BF6EC7 /* SportsCollectionViewController.swift */; };
 		BEBD01032BEEC59000BF6EC7 /* SportsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBD01022BEEC59000BF6EC7 /* SportsViewModel.swift */; };
@@ -87,7 +84,7 @@
 		4CCBA9D52BF1D0B500A9FD9A /* IndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorManager.swift; sourceTree = "<group>"; };
 		4CCCB5942BF540BC0069B1A6 /* NetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTest.swift; sourceTree = "<group>"; };
 		4CCCB5962BF548810069B1A6 /* NetworkServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
-		4CCCB5982BF576EB0069B1A6 /* GetCurrentDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentDate.swift; sourceTree = "<group>"; };
+		4CCCB5982BF576EB0069B1A6 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		4CD334C32BF1321900058EE2 /* UpComingEventResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpComingEventResult.swift; sourceTree = "<group>"; };
 		4CD334C52BF1324900058EE2 /* LatestEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEvents.swift; sourceTree = "<group>"; };
 		4CD334C72BF1325A00058EE2 /* Teams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teams.swift; sourceTree = "<group>"; };
@@ -103,6 +100,7 @@
 		4CDC9F662BF070A600682CB5 /* FavoritesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVM.swift; sourceTree = "<group>"; };
 		BE2A088B2BF1701D00524177 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
 		BE2A088C2BF1701D00524177 /* PlayerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerTableViewCell.xib; sourceTree = "<group>"; };
+		BE36C8AD2BF64482001698DD /* NetworkServiceMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceMockTests.swift; sourceTree = "<group>"; };
 		BE3719EF2BEE7CE800ACAA6C /* SportsHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE3719F22BEE7CE800ACAA6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE3719F42BEE7CE800ACAA6C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,10 +118,6 @@
 		BE66F5642BF15C7E000EE117 /* PlayerDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailsViewController.swift; sourceTree = "<group>"; };
 		BE66F5662BF15CB0000EE117 /* PlayerHeaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHeaderUIView.swift; sourceTree = "<group>"; };
 		BE9324012BF3274C003023B8 /* SelectedSport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSport.swift; sourceTree = "<group>"; };
-		BEA83D9A2BF40ADD0039BD59 /* APIServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceMock.swift; sourceTree = "<group>"; };
-		BEA83D9C2BF40AEC0039BD59 /* NetworkServiceMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceMockTests.swift; sourceTree = "<group>"; };
-		BEB7B6582BF4F695002A24EB /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Attributes.swift; path = ../../../../../../../../Attributes.swift; sourceTree = "<group>"; };
-		BEA83D9C2BF40AEC0039BD59 /* APIServiceMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceMockTests.swift; sourceTree = "<group>"; };
 		BEBD00FE2BEEC3D600BF6EC7 /* SportCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportCollectionViewCell.swift; sourceTree = "<group>"; };
 		BEBD01002BEEC3F000BF6EC7 /* SportsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsCollectionViewController.swift; sourceTree = "<group>"; };
 		BEBD01022BEEC59000BF6EC7 /* SportsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsViewModel.swift; sourceTree = "<group>"; };
@@ -415,9 +409,8 @@
 		BEA83D992BF40AC80039BD59 /* APIMocking */ = {
 			isa = PBXGroup;
 			children = (
-				BEA83D9A2BF40ADD0039BD59 /* APIServiceMock.swift */,
-				BEA83D9C2BF40AEC0039BD59 /* NetworkServiceMockTests.swift */,
 				4CCCB5962BF548810069B1A6 /* NetworkServiceMock.swift */,
+				BE36C8AD2BF64482001698DD /* NetworkServiceMockTests.swift */,
 			);
 			path = APIMocking;
 			sourceTree = "<group>";
@@ -428,7 +421,7 @@
 				BEBD01052BEED4C500BF6EC7 /* DarkOverlay.swift */,
 				BEDF0E882BF015D40082CBC3 /* NetworkIndicator.swift */,
 				4CDC41E12BF3DDF00043967E /* CovertIntToUUID.swift */,
-				4CCCB5982BF576EB0069B1A6 /* GetCurrentDate.swift */,
+				4CCCB5982BF576EB0069B1A6 /* DateUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -620,7 +613,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CCCB5992BF576EB0069B1A6 /* GetCurrentDate.swift in Sources */,
+				4CCCB5992BF576EB0069B1A6 /* DateUtil.swift in Sources */,
 				BEBD01062BEED4C500BF6EC7 /* DarkOverlay.swift in Sources */,
 				BEBD01222BEF02D000BF6EC7 /* LeagueTableViewCell.swift in Sources */,
 				4CB02DA92BF3A89600334AB8 /* CoreDataHelper.swift in Sources */,
@@ -667,8 +660,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CCCB5972BF548810069B1A6 /* NetworkServiceMock.swift in Sources */,
-				BEA83D9B2BF40ADD0039BD59 /* APIServiceMock.swift in Sources */,
-				BEA83D9D2BF40AEC0039BD59 /* NetworkServiceMockTests.swift in Sources */,
+				BE36C8AE2BF64482001698DD /* NetworkServiceMockTests.swift in Sources */,
 				4CCCB5952BF540BC0069B1A6 /* NetworkServiceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

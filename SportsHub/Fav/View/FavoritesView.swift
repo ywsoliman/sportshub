@@ -121,9 +121,22 @@ class FavoritesView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         if isConnectedToInternet {
             
-            if indexPath.section == 1 {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            if indexPath.section == 0 {
                 
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let destVC = storyboard.instantiateViewController(withIdentifier: "leagueDetailsVC") as! LeaguesDetailsVC
+                
+                let selectedLeague = favoritesViewModel.fetchAllLeagues()[indexPath.row]
+                favoritesViewModel.selectedLeague = selectedLeague
+                destVC.favoriteViewModel = favoritesViewModel
+                present(destVC, animated: true)
+                
+            }
+            
+            else {
+                
+                
                 let destVC = storyboard.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
                 
                 let selectedTeam = favoritesViewModel.favoriteTeams[indexPath.row]
